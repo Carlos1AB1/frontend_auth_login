@@ -768,7 +768,7 @@
               headers: {
                 'Content-Type': 'application/json'
               },
-              body: JSON.stringify({ email, code: verificationCode })
+              body: JSON.stringify({ email, verificationCode })
             });
 
             const data = await response.json();
@@ -813,30 +813,22 @@
 
           setLoading(resendButton, true);
 
-          try {
-            const response = await fetch(`${API_URL}/auth/resend-verification`, {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json'
-              },
-              body: JSON.stringify({ email })
-            });
+    try {
+      const response = await fetch(`${API_URL}/auth/resend?email=${email}`, {
+        method: 'POST'
+      });
 
-            const data = await response.json();
-
-            if (response.ok) {
-              showMessage(messageElement, 'Código de verificación reenviado exitosamente', 'success');
-            } else {
-              showMessage(messageElement, data.message || 'Error al reenviar el código', 'error');
-            }
-          } catch (error) {
-            showMessage(messageElement, 'Error de conexión con el servidor', 'error');
-            console.error('Error:', error);
-          } finally {
-            setLoading(resendButton, false);
-            isLoading = false;
-          }
-        });
+      if (response.ok) {
+        showMessage(messageElement, 'Código de verificación reenviado a tu correo', 'success');
+      } else {
+        const data = await response.text();
+        showMessage(messageElement, data || 'Error al reenviar el código', 'error');
+      }
+    } catch (error) {
+      showMessage(messageElement, 'Error de conexión con el servidor', 'error');
+      console.error('Error:', error);
+    }
+  });
 
         // Load user profile
         async function loadUserProfile() {
