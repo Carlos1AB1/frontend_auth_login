@@ -4,127 +4,281 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Mi Aplicación</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
     :root {
-      --primary-color: #3a0099;
-      --secondary-color: #00ffff;
-      --dark-bg: #1a0033;
+      --primary-color: #5e35b1;
+      --primary-light: #7e57c2;
+      --primary-dark: #4527a0;
+      --secondary-color: #00e5ff;
+      --dark-bg: #121212;
+      --card-bg: rgba(30, 30, 30, 0.95);
       --light-text: #ffffff;
-      --error-color: #ff4444;
-      --success-color: #00c851;
+      --gray-text: #b0b0b0;
+      --error-color: #f44336;
+      --success-color: #4caf50;
+      --border-radius: 12px;
+      --box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+      --input-bg: rgba(255, 255, 255, 0.05);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
     }
 
     body {
-      font-family: 'Arial', sans-serif;
-      background: linear-gradient(135deg, var(--dark-bg), var(--primary-color), var(--dark-bg));
+      font-family: 'Poppins', sans-serif;
+      background: radial-gradient(ellipse at top, var(--primary-dark), transparent),
+      radial-gradient(ellipse at bottom, var(--dark-bg), var(--dark-bg));
       color: var(--light-text);
       margin: 0;
-      padding: 20px;
+      padding: 0;
       min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cg fill-rule='evenodd'%3E%3Cg fill='%235e35b1' fill-opacity='0.05'%3E%3Cpath opacity='.5' d='M96 95h4v1h-4v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9zm-1 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+      z-index: -1;
     }
 
     .container {
-      max-width: 800px;
-      margin: 0 auto;
-      background-color: rgba(0, 0, 0, 0.5);
-      padding: 30px;
-      border-radius: 15px;
-      box-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
-      border: 2px solid var(--secondary-color);
+      max-width: 900px;
+      width: 90%;
+      margin: 40px auto;
+      background-color: var(--card-bg);
+      padding: 40px;
+      border-radius: var(--border-radius);
+      box-shadow: var(--box-shadow);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(10px);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .container::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: conic-gradient(
+              transparent,
+              rgba(94, 53, 177, 0.1),
+              transparent 30%
+      );
+      animation: rotate 10s linear infinite;
+      z-index: -1;
+    }
+
+    @keyframes rotate {
+      100% {
+        transform: rotate(1turn);
+      }
     }
 
     h1 {
       text-align: center;
-      color: var(--secondary-color);
-      text-shadow: 0 0 10px var(--secondary-color);
+      color: var(--light-text);
       margin-bottom: 30px;
+      font-weight: 600;
+      font-size: 2.5rem;
+      position: relative;
+      display: inline-block;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    h1::after {
+      content: '';
+      position: absolute;
+      width: 60px;
+      height: 4px;
+      background: var(--secondary-color);
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      border-radius: 2px;
+    }
+
+    h2 {
+      color: var(--light-text);
+      margin-bottom: 25px;
+      font-weight: 500;
+      font-size: 1.8rem;
     }
 
     .form-container {
       display: flex;
       flex-direction: column;
-      gap: 20px;
+      gap: 24px;
     }
 
     .form-group {
       display: flex;
       flex-direction: column;
-      gap: 5px;
+      gap: 8px;
     }
 
     label {
-      font-weight: bold;
-      font-size: 16px;
+      font-weight: 500;
+      font-size: 14px;
+      color: var(--gray-text);
+      margin-left: 4px;
     }
 
     input {
-      padding: 12px;
-      border-radius: 5px;
-      border: 1px solid var(--secondary-color);
-      background-color: rgba(0, 0, 0, 0.7);
+      padding: 16px;
+      border-radius: var(--border-radius);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      background-color: var(--input-bg);
       color: var(--light-text);
       font-size: 16px;
-      box-shadow: 0 0 5px var(--secondary-color);
+      transition: all 0.3s;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    input:focus {
+      outline: none;
+      border-color: var(--secondary-color);
+      box-shadow: 0 0 0 2px rgba(0, 229, 255, 0.25);
+    }
+
+    .button-group {
+      display: flex;
+      gap: 12px;
+      margin-top: 8px;
     }
 
     button {
-      padding: 12px 20px;
-      background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+      flex: 1;
+      padding: 14px 20px;
+      background: var(--primary-color);
       border: none;
-      border-radius: 5px;
+      border-radius: var(--border-radius);
       color: var(--light-text);
-      font-weight: bold;
+      font-weight: 500;
       cursor: pointer;
       font-size: 16px;
-      text-transform: uppercase;
-      letter-spacing: 1px;
       transition: all 0.3s;
-      margin-top: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      position: relative;
+      overflow: hidden;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    button::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(
+              90deg,
+              transparent,
+              rgba(255, 255, 255, 0.2),
+              transparent
+      );
+      transition: 0.5s;
+    }
+
+    button:hover::before {
+      left: 100%;
     }
 
     button:hover {
+      background: var(--primary-light);
       transform: translateY(-2px);
-      box-shadow: 0 0 15px var(--secondary-color);
+    }
+
+    button:active {
+      transform: translateY(0);
     }
 
     .message {
-      padding: 10px;
-      border-radius: 5px;
+      padding: 14px;
+      border-radius: var(--border-radius);
       margin-top: 20px;
       text-align: center;
+      font-size: 14px;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .message.visible {
+      opacity: 1;
     }
 
     .error {
-      background-color: rgba(255, 0, 0, 0.3);
+      background-color: rgba(244, 67, 54, 0.1);
       border: 1px solid var(--error-color);
       color: var(--light-text);
     }
 
     .success {
-      background-color: rgba(0, 200, 0, 0.3);
+      background-color: rgba(76, 175, 80, 0.1);
       border: 1px solid var(--success-color);
       color: var(--light-text);
     }
 
     .nav-tabs {
       display: flex;
-      margin-bottom: 20px;
-      border-bottom: 1px solid var(--secondary-color);
+      margin-bottom: 30px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      overflow-x: auto;
+      scrollbar-width: none;
+      position: relative;
+    }
+
+    .nav-tabs::-webkit-scrollbar {
+      display: none;
     }
 
     .nav-tab {
-      padding: 10px 20px;
+      padding: 14px 20px;
       cursor: pointer;
       background-color: transparent;
       border: none;
-      color: var(--light-text);
+      color: var(--gray-text);
       font-size: 16px;
       position: relative;
+      transition: all 0.3s;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 500;
+      min-width: fit-content;
+    }
+
+    .nav-tab i {
+      margin-right: 8px;
+      font-size: 14px;
+    }
+
+    .nav-tab:hover {
+      color: var(--light-text);
     }
 
     .nav-tab.active {
       color: var(--secondary-color);
-      text-shadow: 0 0 5px var(--secondary-color);
     }
 
     .nav-tab.active::after {
@@ -135,66 +289,208 @@
       width: 100%;
       height: 3px;
       background-color: var(--secondary-color);
-      box-shadow: 0 0 10px var(--secondary-color);
+      border-radius: 2px;
+    }
+
+    .slider {
+      position: absolute;
+      bottom: 0;
+      height: 3px;
+      background-color: var(--secondary-color);
+      transition: all 0.3s ease;
+      border-radius: 2px;
     }
 
     .tab-content {
       display: none;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity 0.3s ease, transform 0.3s ease;
     }
 
     .tab-content.active {
       display: block;
+      opacity: 1;
+      transform: translateY(0);
+      animation: fadeIn 0.5s ease;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     .user-data {
-      background-color: rgba(0, 0, 0, 0.7);
-      padding: 15px;
-      border-radius: 8px;
+      background-color: var(--input-bg);
+      padding: 25px;
+      border-radius: var(--border-radius);
       margin-top: 20px;
-      border: 1px solid var(--secondary-color);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .user-data p {
+      margin-bottom: 15px;
+      color: var(--gray-text);
+    }
+
+    .user-data p:last-child {
+      margin-bottom: 0;
+    }
+
+    .user-data p strong {
+      color: var(--light-text);
+      margin-right: 8px;
+      font-weight: 500;
     }
 
     .all-users {
       margin-top: 20px;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 20px;
     }
 
     .user-card {
-      background-color: rgba(0, 0, 0, 0.7);
-      padding: 15px;
-      border-radius: 8px;
-      margin-bottom: 10px;
-      border: 1px solid var(--secondary-color);
+      background-color: var(--input-bg);
+      padding: 25px;
+      border-radius: var(--border-radius);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      transition: all 0.3s;
+    }
+
+    .user-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      border-color: rgba(0, 229, 255, 0.2);
+    }
+
+    .user-card p {
+      margin-bottom: 12px;
+      color: var(--gray-text);
+      font-size: 14px;
+    }
+
+    .user-card p:last-child {
+      margin-bottom: 0;
+    }
+
+    .user-card p strong {
+      color: var(--light-text);
+      margin-right: 8px;
+      font-weight: 500;
     }
 
     .logout-button {
-      background: linear-gradient(to right, var(--error-color), #990000);
+      background: var(--error-color);
+      margin-top: 20px;
+    }
+
+    .logout-button:hover {
+      background: #d32f2f;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .container {
+        padding: 30px 20px;
+        width: 95%;
+      }
+
+      h1 {
+        font-size: 2rem;
+      }
+
+      .nav-tab {
+        padding: 12px 15px;
+        font-size: 14px;
+      }
+
+      .all-users {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Loading spinner */
+    .loading {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      border: 3px solid rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      border-top-color: #fff;
+      animation: spin 1s ease-in-out infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* Floating decoration */
+    .decoration {
+      position: fixed;
+      border-radius: 50%;
+      background: radial-gradient(circle at center, var(--secondary-color), transparent);
+      filter: blur(60px);
+      z-index: -2;
+      opacity: 0.15;
+    }
+
+    .decoration-1 {
+      width: 300px;
+      height: 300px;
+      top: -100px;
+      right: -100px;
+      animation: float 20s ease-in-out infinite alternate;
+    }
+
+    .decoration-2 {
+      width: 200px;
+      height: 200px;
+      bottom: -50px;
+      left: -50px;
+      animation: float 15s ease-in-out infinite alternate-reverse;
+    }
+
+    @keyframes float {
+      0% { transform: translate(0, 0); }
+      100% { transform: translate(50px, 50px); }
     }
   </style>
 </head>
 <body>
-<div class="container">
+<div class="decoration decoration-1"></div>
+<div class="decoration decoration-2"></div>
+
+<div class="container animate__animated animate__fadeIn">
   <h1>Mi Aplicación</h1>
 
   <div class="nav-tabs">
-    <button class="nav-tab active" data-tab="login">Iniciar Sesión</button>
-    <button class="nav-tab" data-tab="register">Registrarse</button>
-    <button class="nav-tab" data-tab="verify">Verificar Cuenta</button>
-    <button class="nav-tab" data-tab="profile">Perfil</button>
-    <button class="nav-tab" data-tab="users">Usuarios</button>
+    <button class="nav-tab active" data-tab="login"><i class="fas fa-sign-in-alt"></i>Iniciar Sesión</button>
+    <button class="nav-tab" data-tab="register"><i class="fas fa-user-plus"></i>Registrarse</button>
+    <button class="nav-tab" data-tab="verify"><i class="fas fa-check-circle"></i>Verificar Cuenta</button>
+    <button class="nav-tab" data-tab="profile"><i class="fas fa-user"></i>Perfil</button>
+    <button class="nav-tab" data-tab="users"><i class="fas fa-users"></i>Usuarios</button>
+    <div class="slider"></div>
   </div>
 
   <!-- Login Form -->
   <div class="tab-content active" id="login">
     <div class="form-container">
       <div class="form-group">
-        <label for="loginEmail">Correo:</label>
-        <input type="email" id="loginEmail" required>
+        <label for="loginEmail">Correo Electrónico</label>
+        <input type="email" id="loginEmail" placeholder="ejemplo@correo.com" required>
       </div>
       <div class="form-group">
-        <label for="loginPassword">Contraseña:</label>
-        <input type="password" id="loginPassword" required>
+        <label for="loginPassword">Contraseña</label>
+        <input type="password" id="loginPassword" placeholder="Tu contraseña" required>
       </div>
-      <button id="loginButton">Iniciar Sesión</button>
+      <button id="loginButton"><i class="fas fa-sign-in-alt"></i>Iniciar Sesión</button>
       <div id="loginMessage" class="message"></div>
     </div>
   </div>
@@ -203,18 +499,18 @@
   <div class="tab-content" id="register">
     <div class="form-container">
       <div class="form-group">
-        <label for="registerUsername">Nombre de Usuario:</label>
-        <input type="text" id="registerUsername" required>
+        <label for="registerUsername">Nombre de Usuario</label>
+        <input type="text" id="registerUsername" placeholder="Tu nombre de usuario" required>
       </div>
       <div class="form-group">
-        <label for="registerEmail">Correo:</label>
-        <input type="email" id="registerEmail" required>
+        <label for="registerEmail">Correo Electrónico</label>
+        <input type="email" id="registerEmail" placeholder="ejemplo@correo.com" required>
       </div>
       <div class="form-group">
-        <label for="registerPassword">Contraseña:</label>
-        <input type="password" id="registerPassword" required>
+        <label for="registerPassword">Contraseña</label>
+        <input type="password" id="registerPassword" placeholder="Crea una contraseña segura" required>
       </div>
-      <button id="registerButton">Registrarse</button>
+      <button id="registerButton"><i class="fas fa-user-plus"></i>Registrarse</button>
       <div id="registerMessage" class="message"></div>
     </div>
   </div>
@@ -223,31 +519,33 @@
   <div class="tab-content" id="verify">
     <div class="form-container">
       <div class="form-group">
-        <label for="verifyEmail">Correo:</label>
-        <input type="email" id="verifyEmail" required>
+        <label for="verifyEmail">Correo Electrónico</label>
+        <input type="email" id="verifyEmail" placeholder="ejemplo@correo.com" required>
       </div>
       <div class="form-group">
-        <label for="verifyCode">Código de Verificación:</label>
-        <input type="text" id="verifyCode" required>
+        <label for="verifyCode">Código de Verificación</label>
+        <input type="text" id="verifyCode" placeholder="Ingresa el código recibido" required>
       </div>
-      <button id="verifyButton">Verificar Cuenta</button>
-      <button id="resendButton">Reenviar Código</button>
+      <div class="button-group">
+        <button id="verifyButton"><i class="fas fa-check-circle"></i>Verificar Cuenta</button>
+        <button id="resendButton"><i class="fas fa-paper-plane"></i>Reenviar Código</button>
+      </div>
       <div id="verifyMessage" class="message"></div>
     </div>
   </div>
 
   <!-- Profile -->
   <div class="tab-content" id="profile">
-    <h2>Perfil de Usuario</h2>
+    <h2><i class="fas fa-user"></i> Perfil de Usuario</h2>
     <div id="userData" class="user-data">
       <p>Inicia sesión para ver tu perfil.</p>
     </div>
-    <button id="logoutButton" class="logout-button">Cerrar Sesión</button>
+    <button id="logoutButton" class="logout-button"><i class="fas fa-sign-out-alt"></i>Cerrar Sesión</button>
   </div>
 
   <!-- Users List -->
   <div class="tab-content" id="users">
-    <h2>Lista de Usuarios</h2>
+    <h2><i class="fas fa-users"></i> Lista de Usuarios</h2>
     <div id="allUsers" class="all-users">
       <p>Inicia sesión para ver la lista de usuarios.</p>
     </div>
@@ -261,24 +559,45 @@
   // Elementos del DOM
   const navTabs = document.querySelectorAll('.nav-tab');
   const tabContents = document.querySelectorAll('.tab-content');
+  const slider = document.querySelector('.slider');
 
   // Variables globales
   let authToken = localStorage.getItem('authToken');
+  let isLoading = false;
+
+  // Inicializar el slider
+  function initSlider() {
+    const activeTab = document.querySelector('.nav-tab.active');
+    slider.style.width = `${activeTab.offsetWidth}px`;
+    slider.style.left = `${activeTab.offsetLeft}px`;
+  }
+
+  // Inicializar el slider
+  window.addEventListener('load', initSlider);
+  window.addEventListener('resize', initSlider);
 
   // Cambio de pestañas
   navTabs.forEach(tab => {
     tab.addEventListener('click', () => {
+      if (isLoading) return;
+
       const tabId = tab.getAttribute('data-tab');
 
       // Actualiza clases activas en pestañas
       navTabs.forEach(t => t.classList.remove('active'));
       tab.classList.add('active');
 
+      // Anima el slider
+      slider.style.width = `${tab.offsetWidth}px`;
+      slider.style.left = `${tab.offsetLeft}px`;
+
       // Actualiza contenido activo
       tabContents.forEach(content => {
         content.classList.remove('active');
         if (content.id === tabId) {
-          content.classList.add('active');
+          setTimeout(() => {
+            content.classList.add('active');
+          }, 50);
         }
       });
 
@@ -291,16 +610,50 @@
     });
   });
 
+  // Función para mostrar estado de carga
+  function setLoading(button, isLoading) {
+    if (isLoading) {
+      button.innerHTML = `<div class="loading"></div>`;
+      button.disabled = true;
+    } else {
+      const icon = button.getAttribute('data-icon') || '';
+      const text = button.getAttribute('data-text') || button.textContent;
+      button.innerHTML = icon ? `<i class="${icon}"></i>${text}` : text;
+      button.disabled = false;
+    }
+  }
+
+  // Función para mostrar mensajes
+  function showMessage(element, message, type) {
+    element.textContent = message;
+    element.className = `message ${type} visible`;
+
+    // Auto limpiar después de 5 segundos
+    setTimeout(() => {
+      element.className = 'message';
+    }, 5000);
+  }
+
   // Login
-  document.getElementById('loginButton').addEventListener('click', async () => {
+  const loginButton = document.getElementById('loginButton');
+  loginButton.setAttribute('data-icon', 'fas fa-sign-in-alt');
+  loginButton.setAttribute('data-text', 'Iniciar Sesión');
+
+  loginButton.addEventListener('click', async () => {
+    if (isLoading) return;
+    isLoading = true;
+
     const email = document.getElementById('loginEmail').value;
     const password = document.getElementById('loginPassword').value;
     const messageElement = document.getElementById('loginMessage');
 
     if (!email || !password) {
       showMessage(messageElement, 'Por favor completa todos los campos', 'error');
+      isLoading = false;
       return;
     }
+
+    setLoading(loginButton, true);
 
     try {
       const response = await fetch(`${API_URL}/auth/login`, {
@@ -318,19 +671,32 @@
         localStorage.setItem('authToken', authToken);
         showMessage(messageElement, 'Inicio de sesión exitoso', 'success');
 
-        // Cambiar a la pestaña de perfil
-        document.querySelector('[data-tab="profile"]').click();
+        // Animación exitosa
+        setTimeout(() => {
+          // Cambiar a la pestaña de perfil
+          document.querySelector('[data-tab="profile"]').click();
+        }, 1000);
       } else {
         showMessage(messageElement, data.message || 'Error al iniciar sesión', 'error');
       }
     } catch (error) {
       showMessage(messageElement, 'Error de conexión con el servidor', 'error');
       console.error('Error:', error);
+    } finally {
+      setLoading(loginButton, false);
+      isLoading = false;
     }
   });
 
   // Register
-  document.getElementById('registerButton').addEventListener('click', async () => {
+  const registerButton = document.getElementById('registerButton');
+  registerButton.setAttribute('data-icon', 'fas fa-user-plus');
+  registerButton.setAttribute('data-text', 'Registrarse');
+
+  registerButton.addEventListener('click', async () => {
+    if (isLoading) return;
+    isLoading = true;
+
     const username = document.getElementById('registerUsername').value;
     const email = document.getElementById('registerEmail').value;
     const password = document.getElementById('registerPassword').value;
@@ -338,8 +704,11 @@
 
     if (!username || !email || !password) {
       showMessage(messageElement, 'Por favor completa todos los campos', 'error');
+      isLoading = false;
       return;
     }
+
+    setLoading(registerButton, true);
 
     try {
       const response = await fetch(`${API_URL}/auth/signup`, {
@@ -355,181 +724,244 @@
       if (response.ok) {
         showMessage(messageElement, 'Registro exitoso. Por favor verifica tu cuenta con el código enviado a tu correo.', 'success');
 
-        // Cambiar a la pestaña de verificación
-        document.querySelector('[data-tab="verify"]').click();
-        document.getElementById('verifyEmail').value = email;
+        // Cambiar a la pestaña de verificación después de un breve retraso
+        setTimeout(() => {
+          document.querySelector('[data-tab="verify"]').click();
+          document.getElementById('verifyEmail').value = email;
+        }, 1500);
       } else {
         showMessage(messageElement, data.message || 'Error al registrarse', 'error');
       }
     } catch (error) {
       showMessage(messageElement, 'Error de conexión con el servidor', 'error');
       console.error('Error:', error);
+    } finally {
+      setLoading(registerButton, false);
+      isLoading = false;
     }
   });
 
-  // Verify
-  document.getElementById('verifyButton').addEventListener('click', async () => {
-    const email = document.getElementById('verifyEmail').value;
-    const verificationCode = document.getElementById('verifyCode').value;
-    const messageElement = document.getElementById('verifyMessage');
+        // Verify
+        const verifyButton = document.getElementById('verifyButton');
+        verifyButton.setAttribute('data-icon', 'fas fa-check-circle');
+        verifyButton.setAttribute('data-text', 'Verificar Cuenta');
 
-    if (!email || !verificationCode) {
-      showMessage(messageElement, 'Por favor completa todos los campos', 'error');
-      return;
-    }
+        verifyButton.addEventListener('click', async () => {
+          if (isLoading) return;
+          isLoading = true;
 
-    try {
-      const response = await fetch(`${API_URL}/auth/verify`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ email, verificationCode })
-      });
+          const email = document.getElementById('verifyEmail').value;
+          const verificationCode = document.getElementById('verifyCode').value;
+          const messageElement = document.getElementById('verifyMessage');
 
-      if (response.ok) {
-        showMessage(messageElement, 'Cuenta verificada exitosamente. Ahora puedes iniciar sesión.', 'success');
+          if (!email || !verificationCode) {
+            showMessage(messageElement, 'Por favor completa todos los campos', 'error');
+            isLoading = false;
+            return;
+          }
 
-        // Cambiar a la pestaña de login
-        document.querySelector('[data-tab="login"]').click();
-        document.getElementById('loginEmail').value = email;
-      } else {
-        const data = await response.text();
-        showMessage(messageElement, data || 'Error al verificar la cuenta', 'error');
-      }
-    } catch (error) {
-      showMessage(messageElement, 'Error de conexión con el servidor', 'error');
-      console.error('Error:', error);
-    }
-  });
+          setLoading(verifyButton, true);
 
-  // Resend verification code
-  document.getElementById('resendButton').addEventListener('click', async () => {
-    const email = document.getElementById('verifyEmail').value;
-    const messageElement = document.getElementById('verifyMessage');
+          try {
+            const response = await fetch(`${API_URL}/auth/verify`, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify({ email, code: verificationCode })
+            });
 
-    if (!email) {
-      showMessage(messageElement, 'Por favor ingresa tu correo', 'error');
-      return;
-    }
+            const data = await response.json();
 
-    try {
-      const response = await fetch(`${API_URL}/auth/resend?email=${email}`, {
-        method: 'POST'
-      });
+            if (response.ok) {
+              showMessage(messageElement, 'Cuenta verificada exitosamente. Ahora puedes iniciar sesión.', 'success');
 
-      if (response.ok) {
-        showMessage(messageElement, 'Código de verificación reenviado a tu correo', 'success');
-      } else {
-        const data = await response.text();
-        showMessage(messageElement, data || 'Error al reenviar el código', 'error');
-      }
-    } catch (error) {
-      showMessage(messageElement, 'Error de conexión con el servidor', 'error');
-      console.error('Error:', error);
-    }
-  });
-
-  // Logout
-  document.getElementById('logoutButton').addEventListener('click', () => {
-    authToken = null;
-    localStorage.removeItem('authToken');
-    document.getElementById('userData').innerHTML = '<p>Inicia sesión para ver tu perfil.</p>';
-    document.getElementById('allUsers').innerHTML = '<p>Inicia sesión para ver la lista de usuarios.</p>';
-
-    // Cambiar a la pestaña de login
-    document.querySelector('[data-tab="login"]').click();
-  });
-
-  // Cargar perfil de usuario
-  async function loadUserProfile() {
-    if (!authToken) return;
-
-    try {
-      const response = await fetch(`${API_URL}/users/me`, {
-        headers: {
-          'Authorization': `Bearer ${authToken}`
-        }
-      });
-
-      if (response.ok) {
-        const user = await response.json();
-        document.getElementById('userData').innerHTML = `
-                        <p><strong>ID:</strong> ${user.id}</p>
-                        <p><strong>Nombre de Usuario:</strong> ${user.username}</p>
-                        <p><strong>Correo:</strong> ${user.email}</p>
-                    `;
-      } else if (response.status === 401) {
-        // Token expirado
-        authToken = null;
-        localStorage.removeItem('authToken');
-        document.querySelector('[data-tab="login"]').click();
-      }
-    } catch (error) {
-      console.error('Error al cargar perfil:', error);
-    }
-  }
-
-  // Cargar todos los usuarios
-  async function loadAllUsers() {
-    if (!authToken) return;
-
-    try {
-      const response = await fetch(`${API_URL}/users/`, {
-        headers: {
-          'Authorization': `Bearer ${authToken}`
-        }
-      });
-
-      if (response.ok) {
-        const users = await response.json();
-        const usersElement = document.getElementById('allUsers');
-
-        if (users.length === 0) {
-          usersElement.innerHTML = '<p>No hay usuarios registrados.</p>';
-          return;
-        }
-
-        let html = '';
-        users.forEach(user => {
-          html += `
-                            <div class="user-card">
-                                <p><strong>ID:</strong> ${user.id}</p>
-                                <p><strong>Usuario:</strong> ${user.username}</p>
-                                <p><strong>Correo:</strong> ${user.email}</p>
-                            </div>
-                        `;
+              // Cambiar a la pestaña de inicio de sesión después de un breve retraso
+              setTimeout(() => {
+                document.querySelector('[data-tab="login"]').click();
+                document.getElementById('loginEmail').value = email;
+              }, 1500);
+            } else {
+              showMessage(messageElement, data.message || 'Error al verificar la cuenta', 'error');
+            }
+          } catch (error) {
+            showMessage(messageElement, 'Error de conexión con el servidor', 'error');
+            console.error('Error:', error);
+          } finally {
+            setLoading(verifyButton, false);
+            isLoading = false;
+          }
         });
 
-        usersElement.innerHTML = html;
-      } else if (response.status === 401) {
-        // Token expirado
-        authToken = null;
-        localStorage.removeItem('authToken');
-        document.querySelector('[data-tab="login"]').click();
-      }
-    } catch (error) {
-      console.error('Error al cargar usuarios:', error);
-    }
-  }
+        // Resend verification code
+        const resendButton = document.getElementById('resendButton');
+        resendButton.setAttribute('data-icon', 'fas fa-paper-plane');
+        resendButton.setAttribute('data-text', 'Reenviar Código');
 
-  // Función para mostrar mensajes
-  function showMessage(element, message, type) {
-    element.textContent = message;
-    element.className = `message ${type}`;
+        resendButton.addEventListener('click', async () => {
+          if (isLoading) return;
+          isLoading = true;
 
-    // Auto limpiar después de 5 segundos
-    setTimeout(() => {
-      element.textContent = '';
-      element.className = 'message';
-    }, 5000);
-  }
+          const email = document.getElementById('verifyEmail').value;
+          const messageElement = document.getElementById('verifyMessage');
 
-  // Comprobar si hay token guardado e inicializar la interfaz
-  if (authToken) {
-    // Cambiar a la pestaña de perfil si hay token
-    document.querySelector('[data-tab="profile"]').click();
-  }
+          if (!email) {
+            showMessage(messageElement, 'Por favor ingresa tu correo electrónico', 'error');
+            isLoading = false;
+            return;
+          }
+
+          setLoading(resendButton, true);
+
+          try {
+            const response = await fetch(`${API_URL}/auth/resend-verification`, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify({ email })
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+              showMessage(messageElement, 'Código de verificación reenviado exitosamente', 'success');
+            } else {
+              showMessage(messageElement, data.message || 'Error al reenviar el código', 'error');
+            }
+          } catch (error) {
+            showMessage(messageElement, 'Error de conexión con el servidor', 'error');
+            console.error('Error:', error);
+          } finally {
+            setLoading(resendButton, false);
+            isLoading = false;
+          }
+        });
+
+        // Load user profile
+        async function loadUserProfile() {
+          if (!authToken) return;
+
+          const userDataElement = document.getElementById('userData');
+          userDataElement.innerHTML = '<p>Cargando datos de perfil...</p>';
+
+          try {
+            const response = await fetch(`${API_URL}/api/user/profile`, {
+              method: 'GET',
+              headers: {
+                'Authorization': `Bearer ${authToken}`
+              }
+            });
+
+            if (response.status === 401) {
+              // Token expirado o inválido
+              authToken = null;
+              localStorage.removeItem('authToken');
+              userDataElement.innerHTML = '<p>Sesión expirada. Por favor inicia sesión nuevamente.</p>';
+              return;
+            }
+
+            const data = await response.json();
+
+            if (response.ok) {
+              userDataElement.innerHTML = `
+          <p><strong>Nombre de Usuario:</strong> ${data.username}</p>
+          <p><strong>Correo Electrónico:</strong> ${data.email}</p>
+          <p><strong>Estado:</strong> ${data.enabled ? 'Verificado' : 'No Verificado'}</p>
+          <p><strong>Fecha de Registro:</strong> ${new Date(data.createdAt).toLocaleString()}</p>
+        `;
+            } else {
+              userDataElement.innerHTML = '<p>Error al cargar los datos del perfil</p>';
+            }
+          } catch (error) {
+            userDataElement.innerHTML = '<p>Error de conexión con el servidor</p>';
+            console.error('Error:', error);
+          }
+        }
+
+        // Load all users (admin feature)
+        async function loadAllUsers() {
+          if (!authToken) return;
+
+          const allUsersElement = document.getElementById('allUsers');
+          allUsersElement.innerHTML = '<p>Cargando usuarios...</p>';
+
+          try {
+            const response = await fetch(`${API_URL}/api/admin/users`, {
+              method: 'GET',
+              headers: {
+                'Authorization': `Bearer ${authToken}`
+              }
+            });
+
+            if (response.status === 401) {
+              // Token expirado o inválido
+              authToken = null;
+              localStorage.removeItem('authToken');
+              allUsersElement.innerHTML = '<p>Sesión expirada. Por favor inicia sesión nuevamente.</p>';
+              return;
+            }
+
+            if (response.status === 403) {
+              // No tiene permisos de administrador
+              allUsersElement.innerHTML = '<p>No tienes permisos para ver esta información</p>';
+              return;
+            }
+
+            const data = await response.json();
+
+            if (response.ok && data.length > 0) {
+              allUsersElement.innerHTML = '';
+              data.forEach(user => {
+                const userCard = document.createElement('div');
+                userCard.className = 'user-card';
+                userCard.innerHTML = `
+            <p><strong>Usuario:</strong> ${user.username}</p>
+            <p><strong>Email:</strong> ${user.email}</p>
+            <p><strong>Estado:</strong> ${user.enabled ? 'Verificado' : 'No Verificado'}</p>
+          `;
+                allUsersElement.appendChild(userCard);
+              });
+            } else if (response.ok && data.length === 0) {
+              allUsersElement.innerHTML = '<p>No hay usuarios registrados</p>';
+            } else {
+              allUsersElement.innerHTML = '<p>Error al cargar los usuarios</p>';
+            }
+          } catch (error) {
+            allUsersElement.innerHTML = '<p>Error de conexión con el servidor</p>';
+            console.error('Error:', error);
+          }
+        }
+
+        // Logout button
+        const logoutButton = document.getElementById('logoutButton');
+        logoutButton.addEventListener('click', () => {
+          authToken = null;
+          localStorage.removeItem('authToken');
+
+          // Actualizar la UI
+          document.getElementById('userData').innerHTML = '<p>Inicia sesión para ver tu perfil.</p>';
+          document.getElementById('allUsers').innerHTML = '<p>Inicia sesión para ver la lista de usuarios.</p>';
+
+          // Redirigir a la pestaña de login
+          document.querySelector('[data-tab="login"]').click();
+
+          // Mostrar mensaje
+          showMessage(document.getElementById('loginMessage'), 'Sesión cerrada exitosamente', 'success');
+        });
+
+        // Verificar si hay token al cargar la página
+        window.addEventListener('DOMContentLoaded', () => {
+          if (authToken) {
+            // Si el usuario está en perfil o usuarios, cargar datos
+            const activeTab = document.querySelector('.nav-tab.active').getAttribute('data-tab');
+            if (activeTab === 'profile') {
+              loadUserProfile();
+            } else if (activeTab === 'users') {
+              loadAllUsers();
+            }
+          }
+        });
 </script>
 </body>
 </html>
