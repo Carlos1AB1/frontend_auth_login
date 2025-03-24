@@ -3,92 +3,178 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mi Aplicación</title>
+  <meta name="description" content="Sistema de gestión de usuarios con autenticación segura">
+  <title>Neural Auth - Aplicación de Gestión</title>
+  <!-- Fuentes de Google -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Font Awesome para iconos -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="stylesheet" href="styles.css">
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🔐</text></svg>">
 </head>
 <body>
-<div class="container">
-  <h1>Mi Aplicación</h1>
-
-  <div class="nav-tabs">
-    <button class="nav-tab active" data-tab="login">Iniciar Sesión</button>
-    <button class="nav-tab" data-tab="register">Registrarse</button>
-    <button class="nav-tab" data-tab="verify">Verificar Cuenta</button>
-    <button class="nav-tab" data-tab="profile">Perfil</button>
-    <button class="nav-tab" data-tab="users">Usuarios</button>
-  </div>
-
-  <!-- Login Form -->
-  <div class="tab-content active" id="login">
-    <div class="form-container">
-      <div class="form-group">
-        <label for="loginEmail">Correo:</label>
-        <input type="email" id="loginEmail" required>
+<div class="page-wrapper">
+  <div class="container">
+    <header class="app-header">
+      <div class="logo">
+        <div class="logo-icon"><i class="fas fa-fingerprint"></i></div>
+        <h1>Neural<span>Auth</span></h1>
       </div>
-      <div class="form-group">
-        <label for="loginPassword">Contraseña:</label>
-        <input type="password" id="loginPassword" required>
+      <p class="tagline">Sistema de autenticación inteligente</p>
+    </header>
+
+    <div class="app-card">
+      <div class="nav-tabs">
+        <button class="nav-tab active" data-tab="login">
+          <i class="fas fa-sign-in-alt"></i>
+          <span>Iniciar Sesión</span>
+        </button>
+        <button class="nav-tab" data-tab="register">
+          <i class="fas fa-user-plus"></i>
+          <span>Registrarse</span>
+        </button>
+        <button class="nav-tab" data-tab="verify">
+          <i class="fas fa-check-circle"></i>
+          <span>Verificar</span>
+        </button>
+        <button class="nav-tab" data-tab="profile">
+          <i class="fas fa-user-circle"></i>
+          <span>Perfil</span>
+        </button>
+        <button class="nav-tab" data-tab="users">
+          <i class="fas fa-users"></i>
+          <span>Usuarios</span>
+        </button>
       </div>
-      <button id="loginButton">Iniciar Sesión</button>
-      <div id="loginMessage" class="message"></div>
+
+      <div class="tab-content-wrapper">
+        <!-- Login Form -->
+        <div class="tab-content active" id="login">
+          <div class="tab-header">
+            <h2><i class="fas fa-sign-in-alt"></i> Acceso Seguro</h2>
+            <p>Ingresa tus credenciales para acceder al sistema</p>
+          </div>
+          <div class="form-container">
+            <div class="form-group">
+              <label for="loginEmail"><i class="fas fa-envelope"></i> Correo electrónico</label>
+              <input type="email" id="loginEmail" placeholder="correo@ejemplo.com" required>
+            </div>
+            <div class="form-group">
+              <label for="loginPassword"><i class="fas fa-lock"></i> Contraseña</label>
+              <input type="password" id="loginPassword" placeholder="••••••••" required>
+            </div>
+            <button id="loginButton" class="btn-primary btn-glow">
+              <span>Iniciar Sesión</span>
+              <i class="fas fa-arrow-right"></i>
+            </button>
+            <div id="loginMessage" class="message"></div>
+          </div>
+        </div>
+
+        <!-- Register Form -->
+        <div class="tab-content" id="register">
+          <div class="tab-header">
+            <h2><i class="fas fa-user-plus"></i> Crear Cuenta</h2>
+            <p>Únete a nuestra plataforma de forma segura</p>
+          </div>
+          <div class="form-container">
+            <div class="form-group">
+              <label for="registerUsername"><i class="fas fa-user"></i> Nombre de Usuario</label>
+              <input type="text" id="registerUsername" placeholder="johndoe" required>
+            </div>
+            <div class="form-group">
+              <label for="registerEmail"><i class="fas fa-envelope"></i> Correo electrónico</label>
+              <input type="email" id="registerEmail" placeholder="correo@ejemplo.com" required>
+            </div>
+            <div class="form-group">
+              <label for="registerPassword"><i class="fas fa-lock"></i> Contraseña</label>
+              <input type="password" id="registerPassword" placeholder="••••••••" required>
+            </div>
+            <button id="registerButton" class="btn-primary btn-glow">
+              <span>Crear Cuenta</span>
+              <i class="fas fa-user-check"></i>
+            </button>
+            <div id="registerMessage" class="message"></div>
+          </div>
+        </div>
+
+        <!-- Verify Form -->
+        <div class="tab-content" id="verify">
+          <div class="tab-header">
+            <h2><i class="fas fa-check-circle"></i> Verificación</h2>
+            <p>Activa tu cuenta con el código recibido</p>
+          </div>
+          <div class="form-container">
+            <div class="form-group">
+              <label for="verifyEmail"><i class="fas fa-envelope"></i> Correo electrónico</label>
+              <input type="email" id="verifyEmail" placeholder="correo@ejemplo.com" required>
+            </div>
+            <div class="form-group">
+              <label for="verifyCode"><i class="fas fa-key"></i> Código de Verificación</label>
+              <input type="text" id="verifyCode" placeholder="123456" required>
+            </div>
+            <div class="button-group">
+              <button id="verifyButton" class="btn-primary btn-glow">
+                <span>Verificar Cuenta</span>
+                <i class="fas fa-check"></i>
+              </button>
+              <button id="resendButton" class="btn-secondary">
+                <i class="fas fa-redo"></i>
+                <span>Reenviar Código</span>
+              </button>
+            </div>
+            <div id="verifyMessage" class="message"></div>
+          </div>
+        </div>
+
+        <!-- Profile -->
+        <div class="tab-content" id="profile">
+          <div class="tab-header">
+            <h2><i class="fas fa-user-circle"></i> Perfil de Usuario</h2>
+            <p>Información de tu cuenta</p>
+          </div>
+          <div id="userData" class="user-data">
+            <div class="profile-placeholder">
+              <i class="fas fa-user-circle"></i>
+              <p>Inicia sesión para ver tu perfil</p>
+            </div>
+          </div>
+          <button id="logoutButton" class="btn-logout">
+            <i class="fas fa-sign-out-alt"></i>
+            <span>Cerrar Sesión</span>
+          </button>
+        </div>
+
+        <!-- Users List -->
+        <div class="tab-content" id="users">
+          <div class="tab-header">
+            <h2><i class="fas fa-users"></i> Lista de Usuarios</h2>
+            <p>Visualización de usuarios registrados</p>
+          </div>
+          <div id="allUsers" class="all-users">
+            <div class="users-placeholder">
+              <i class="fas fa-users"></i>
+              <p>Inicia sesión para ver la lista de usuarios</p>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-  </div>
 
-  <!-- Register Form -->
-  <div class="tab-content" id="register">
-    <div class="form-container">
-      <div class="form-group">
-        <label for="registerUsername">Nombre de Usuario:</label>
-        <input type="text" id="registerUsername" required>
-      </div>
-      <div class="form-group">
-        <label for="registerEmail">Correo:</label>
-        <input type="email" id="registerEmail" required>
-      </div>
-      <div class="form-group">
-        <label for="registerPassword">Contraseña:</label>
-        <input type="password" id="registerPassword" required>
-      </div>
-      <button id="registerButton">Registrarse</button>
-      <div id="registerMessage" class="message"></div>
-    </div>
-  </div>
-
-  <!-- Verify Form -->
-  <div class="tab-content" id="verify">
-    <div class="form-container">
-      <div class="form-group">
-        <label for="verifyEmail">Correo:</label>
-        <input type="email" id="verifyEmail" required>
-      </div>
-      <div class="form-group">
-        <label for="verifyCode">Código de Verificación:</label>
-        <input type="text" id="verifyCode" required>
-      </div>
-      <button id="verifyButton">Verificar Cuenta</button>
-      <button id="resendButton">Reenviar Código</button>
-      <div id="verifyMessage" class="message"></div>
-    </div>
-  </div>
-
-  <!-- Profile -->
-  <div class="tab-content" id="profile">
-    <h2>Perfil de Usuario</h2>
-    <div id="userData" class="user-data">
-      <p>Inicia sesión para ver tu perfil.</p>
-    </div>
-    <button id="logoutButton" class="logout-button">Cerrar Sesión</button>
-  </div>
-
-  <!-- Users List -->
-  <div class="tab-content" id="users">
-    <h2>Lista de Usuarios</h2>
-    <div id="allUsers" class="all-users">
-      <p>Inicia sesión para ver la lista de usuarios.</p>
-    </div>
+    <footer class="app-footer">
+      <p>&copy; 2025 Neural<span>Auth</span> | Sistema de Autenticación Segura</p>
+    </footer>
   </div>
 </div>
 
+<!-- Partículas de fondo -->
+<div id="particles-js"></div>
+
+<!-- Librería de partículas -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
 <script src="app.js"></script>
 </body>
 </html>
