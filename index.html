@@ -1,823 +1,881 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nexus Auth | Plataforma de Gestión de Usuarios</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@700;800;900&display=swap');
-
-        :root {
-            --primary-color: #6c3ce9;
-            --primary-dark: #4a1fb8;
-            --primary-light: #9066ff;
-            --secondary-color: #00e5ff;
-            --secondary-dark: #00b8cc;
-            --accent-color: #ff3e7f;
-            --dark-bg: #0f0624;
-            --dark-card: #1a0f33;
-            --dark-input: #14072e;
-            --light-text: #ffffff;
-            --muted-text: #c0b8d8;
-            --error-color: #ff4477;
-            --success-color: #00e5b0;
-            --border-radius: 12px;
-            --card-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
-            --box-shadow: 0 4px 12px rgba(108, 60, 233, 0.3);
-            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-            --backdrop-blur: blur(20px);
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        body {
-            font-family: 'Poppins', sans-serif;
-            background: radial-gradient(circle at center, var(--primary-dark), var(--dark-bg) 70%);
-            background-attachment: fixed;
-            background-size: 200% 200%;
-            color: var(--light-text);
-            margin: 0;
-            padding: 0;
-            min-height: 100vh;
-            position: relative;
-            overflow-x: hidden;
-        }
-
-        body::before {
-            content: "";
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: url("https://via.placeholder.com/1920x1080") center/cover no-repeat;
-            opacity: 0.05;
-            z-index: -1;
-        }
-
-        .background-decoration {
-            position: fixed;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            z-index: -1;
-            overflow: hidden;
-        }
-
-        .orb {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(80px);
-            opacity: 0.2;
-            animation: float 20s infinite ease-in-out;
-        }
-
-        .orb-1 {
-            background: var(--primary-color);
-            width: 800px;
-            height: 800px;
-            top: -400px;
-            left: -200px;
-            animation-duration: 35s;
-        }
-
-        .orb-2 {
-            background: var(--secondary-color);
-            width: 600px;
-            height: 600px;
-            bottom: -300px;
-            right: -100px;
-            animation-duration: 45s;
-            animation-delay: 5s;
-        }
-
-        .orb-3 {
-            background: var(--accent-color);
-            width: 300px;
-            height: 300px;
-            top: 20%;
-            right: 10%;
-            animation-duration: 25s;
-            animation-delay: 2s;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translate(0, 0); }
-            25% { transform: translate(5%, 5%); }
-            50% { transform: translate(0, 10%); }
-            75% { transform: translate(-5%, 5%); }
-        }
-
-        .app-container {
-            max-width: 1200px;
-            width: 92%;
-            margin: 40px auto;
-            padding: 25px 0;
-            position: relative;
-        }
-
-        .glass-card {
-            background: rgba(26, 15, 51, 0.8);
-            backdrop-filter: var(--backdrop-blur);
-            -webkit-backdrop-filter: var(--backdrop-blur);
-            border-radius: var(--border-radius);
-            box-shadow: var(--card-shadow);
-            border: 1px solid rgba(108, 60, 233, 0.2);
-            overflow: hidden;
-            transition: var(--transition);
-        }
-
-        .app-header {
-            text-align: center;
-            margin-bottom: 40px;
-        }
-
-        .logo {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 5px;
-        }
-
-        .logo-icon {
-            font-size: 2rem;
-            margin-right: 10px;
-            background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        h1 {
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 800;
-            font-size: clamp(2rem, 5vw, 2.5rem);
-            background: linear-gradient(135deg, var(--secondary-color), var(--primary-light));
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin: 0;
-            letter-spacing: -0.5px;
-        }
-
-        .tagline {
-            font-size: 1rem;
-            color: var(--muted-text);
-            margin-top: 5px;
-        }
-
-        .tab-container {
-            position: relative;
-            margin-bottom: 40px;
-        }
-
-        .nav-tabs {
-            display: flex;
-            justify-content: center;
-            border: none;
-            position: relative;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
-
-        .nav-tab {
-            padding: 12px 24px;
-            background-color: rgba(26, 15, 51, 0.5);
-            border: 1px solid rgba(144, 102, 255, 0.1);
-            color: var(--muted-text);
-            font-weight: 500;
-            font-size: 0.95rem;
-            border-radius: 30px;
-            cursor: pointer;
-            transition: var(--transition);
-            outline: none;
-            position: relative;
-            overflow: hidden;
-            z-index: 1;
-        }
-
-        .nav-tab:hover {
-            background-color: rgba(108, 60, 233, 0.1);
-            color: var(--light-text);
-        }
-
-        .nav-tab.active {
-            background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
-            color: var(--light-text);
-            box-shadow: 0 5px 15px rgba(108, 60, 233, 0.4);
-            border: 1px solid var(--primary-light);
-        }
-
-        .nav-tab.active::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, rgba(0, 229, 255, 0.2), rgba(144, 102, 255, 0));
-            z-index: -1;
-        }
-
-        .nav-tab i {
-            margin-right: 8px;
-            font-size: 0.9rem;
-        }
-
-        .content-container {
-            padding: 35px;
-            border-radius: var(--border-radius);
-        }
-
-        .form-container {
-            max-width: 500px;
-            margin: 0 auto;
-        }
-
-        .form-group {
-            margin-bottom: 24px;
-            position: relative;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 10px;
-            font-weight: 500;
-            font-size: 0.95rem;
-            color: var(--muted-text);
-            transition: var(--transition);
-        }
-
-        .input-group {
-            position: relative;
-        }
-
-        .input-icon {
-            position: absolute;
-            left: 16px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--muted-text);
-            font-size: 1rem;
-            transition: var(--transition);
-        }
-
-        input {
-            width: 100%;
-            padding: 15px 15px 15px 45px;
-            border-radius: var(--border-radius);
-            border: 1px solid rgba(144, 102, 255, 0.2);
-            background-color: var(--dark-input);
-            color: var(--light-text);
-            font-size: 1rem;
-            font-family: 'Poppins', sans-serif;
-            transition: var(--transition);
-        }
-
-        input:hover {
-            border-color: rgba(144, 102, 255, 0.4);
-        }
-
-        input:focus {
-            outline: none;
-            border-color: var(--primary-color);
-            box-shadow: 0 0 0 3px rgba(108, 60, 233, 0.2);
-        }
-
-        input:focus + .input-icon {
-            color: var(--primary-light);
-        }
-
-        .btn {
-            width: 100%;
-            padding: 15px 24px;
-            background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
-            color: var(--light-text);
-            border: none;
-            border-radius: var(--border-radius);
-            font-family: 'Poppins', sans-serif;
-            font-weight: 600;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: var(--transition);
-            position: relative;
-            overflow: hidden;
-            z-index: 1;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, var(--primary-light), var(--primary-color));
-            opacity: 0;
-            z-index: -1;
-            transition: var(--transition);
-        }
-
-        .btn:hover::before {
-            opacity: 1;
-        }
-
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 7px 20px rgba(108, 60, 233, 0.4);
-        }
-
-        .btn-secondary {
-            background: transparent;
-            border: 1px solid var(--primary-color);
-            color: var(--primary-light);
-        }
-
-        .btn-secondary::before {
-            background: rgba(108, 60, 233, 0.1);
-        }
-
-        .btn-danger {
-            background: linear-gradient(135deg, var(--error-color), #c53060);
-        }
-
-        .btn-danger::before {
-            background: linear-gradient(135deg, #ff5588, var(--error-color));
-        }
-
-        .btn-icon {
-            margin-right: 8px;
-            font-size: 1rem;
-        }
-
-        .message {
-            margin-top: 20px;
-            padding: 12px;
-            border-radius: var(--border-radius);
-            font-size: 0.95rem;
-            font-weight: 500;
-            opacity: 0;
-            transform: translateY(10px);
-            transition: opacity 0.3s, transform 0.3s;
-            text-align: center;
-        }
-
-        .message.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .error {
-            background: rgba(255, 68, 119, 0.15);
-            border: 1px solid rgba(255, 68, 119, 0.3);
-            color: var(--error-color);
-        }
-
-        .success {
-            background: rgba(0, 229, 176, 0.15);
-            border: 1px solid rgba(0, 229, 176, 0.3);
-            color: var(--success-color);
-        }
-
-        .tab-content {
-            display: none;
-            animation: fadeIn 0.4s ease-in-out;
-        }
-
-        .tab-content.active {
-            display: block;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .button-group {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 16px;
-            margin-top: 16px;
-        }
-
-        .card-title {
-            font-size: 1.5rem;
-            font-weight: 600;
-            margin-bottom: 24px;
-            color: var(--light-text);
-        }
-
-        .section-title {
-            font-size: 1.2rem;
-            font-weight: 600;
-            margin-bottom: 20px;
-            color: var(--light-text);
-        }
-
-        .user-data-card {
-            background: rgba(20, 7, 46, 0.5);
-            border-radius: var(--border-radius);
-            padding: 24px;
-            margin-bottom: 24px;
-            border: 1px solid rgba(144, 102, 255, 0.1);
-            transition: var(--transition);
-        }
-
-        .user-data-card:hover {
-            border-color: rgba(144, 102, 255, 0.3);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-        }
-
-        .profile-card {
-            text-align: center;
-            padding: 35px;
-        }
-
-        .profile-picture {
-            width: 100px;
-            height: 100px;
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-            border-radius: 50%;
-            margin: 0 auto 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2.5rem;
-            color: var(--light-text);
-        }
-
-        .profile-name {
-            font-size: 1.8rem;
-            font-weight: 700;
-            margin-bottom: 5px;
-        }
-
-        .profile-email {
-            color: var(--muted-text);
-            margin-bottom: 25px;
-        }
-
-        .profile-meta {
-            display: flex;
-            justify-content: center;
-            gap: 25px;
-            margin-bottom: 30px;
-        }
-
-        .meta-item {
-            text-align: center;
-        }
-
-        .meta-value {
-            font-size: 1.2rem;
-            font-weight: 600;
-            color: var(--light-text);
-        }
-
-        .meta-label {
-            font-size: 0.85rem;
-            color: var(--muted-text);
-        }
-
-        .user-card {
-            display: flex;
-            align-items: center;
-            padding: 20px;
-            border-radius: var(--border-radius);
-            background: rgba(20, 7, 46, 0.5);
-            margin-bottom: 15px;
-            border: 1px solid rgba(144, 102, 255, 0.1);
-            transition: var(--transition);
-        }
-
-        .user-card:hover {
-            border-color: rgba(144, 102, 255, 0.3);
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-        }
-
-        .user-card-avatar {
-            width: 50px;
-            height: 50px;
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-            border-radius: 50%;
-            margin-right: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.2rem;
-            color: var(--light-text);
-            flex-shrink: 0;
-        }
-
-        .user-card-content {
-            flex-grow: 1;
-        }
-
-        .user-card-name {
-            font-weight: 600;
-            margin-bottom: 4px;
-        }
-
-        .user-card-email {
-            font-size: 0.9rem;
-            color: var(--muted-text);
-        }
-
-        .user-card-id {
-            color: var(--muted-text);
-            font-size: 0.8rem;
-            margin-top: 4px;
-        }
-
-        .empty-state {
-            text-align: center;
-            padding: 40px 20px;
-            color: var(--muted-text);
-        }
-
-        .empty-state-icon {
-            font-size: 3rem;
-            margin-bottom: 20px;
-            opacity: 0.5;
-        }
-
-        .empty-state-text {
-            font-size: 1.1rem;
-            margin-bottom: 10px;
-        }
-
-        .empty-state-subtext {
-            font-size: 0.9rem;
-        }
-
-        @media (max-width: 768px) {
-            .content-container {
-                padding: 25px 20px;
-            }
-
-            .nav-tab {
-                padding: 10px 16px;
-                font-size: 0.9rem;
-            }
-
-            .app-container {
-                margin: 20px auto;
-            }
-
-            .profile-meta {
-                flex-direction: column;
-                gap: 15px;
-            }
-        }
-
-        .fade-in {
-            animation: fadeIn 0.6s ease-out forwards;
-        }
-
-        .slide-in {
-            animation: slideIn 0.5s ease-out forwards;
-        }
-
-        @keyframes slideIn {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* Loader */
-        .loader-container {
-            display: none;
-            justify-content: center;
-            align-items: center;
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(15, 6, 36, 0.7);
-            backdrop-filter: blur(5px);
-            z-index: 1000;
-            border-radius: var(--border-radius);
-        }
-
-        .loader {
-            width: 48px;
-            height: 48px;
-            border: 5px solid var(--primary-light);
-            border-bottom-color: transparent;
-            border-radius: 50%;
-            display: inline-block;
-            box-sizing: border-box;
-            animation: rotation 1s linear infinite;
-        }
-
-        @keyframes rotation {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        .loader-container.active {
-            display: flex;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Nexus Auth | Plataforma de Gestión de Usuarios</title>
+  
+  <!-- Iconos de Font Awesome -->
+  <link 
+    rel="stylesheet" 
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" 
+  />
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@700;800;900&display=swap');
+
+    :root {
+      --primary-color: #6c3ce9;
+      --primary-dark: #4a1fb8;
+      --primary-light: #9066ff;
+      --secondary-color: #00e5ff;
+      --secondary-dark: #00b8cc;
+      --accent-color: #ff3e7f;
+      --dark-bg: #0f0624;
+      --dark-card: #1a0f33;
+      --dark-input: #14072e;
+      --light-text: #ffffff;
+      --muted-text: #c0b8d8;
+      --error-color: #ff4477;
+      --success-color: #00e5b0;
+      --border-radius: 12px;
+      --card-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+      --box-shadow: 0 4px 12px rgba(108, 60, 233, 0.3);
+      --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+      --backdrop-blur: blur(20px);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: radial-gradient(circle at center, var(--primary-dark), var(--dark-bg) 70%);
+      background-attachment: fixed;
+      background-size: 200% 200%;
+      color: var(--light-text);
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* Imagen de fondo muy tenue */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url("https://via.placeholder.com/1920x1080") center/cover no-repeat;
+      opacity: 0.05;
+      z-index: -1;
+    }
+
+    .background-decoration {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      z-index: -1;
+      overflow: hidden;
+    }
+
+    .orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.2;
+      animation: float 20s infinite ease-in-out;
+    }
+
+    .orb-1 {
+      background: var(--primary-color);
+      width: 800px;
+      height: 800px;
+      top: -400px;
+      left: -200px;
+      animation-duration: 35s;
+    }
+
+    .orb-2 {
+      background: var(--secondary-color);
+      width: 600px;
+      height: 600px;
+      bottom: -300px;
+      right: -100px;
+      animation-duration: 45s;
+      animation-delay: 5s;
+    }
+
+    .orb-3 {
+      background: var(--accent-color);
+      width: 300px;
+      height: 300px;
+      top: 20%;
+      right: 10%;
+      animation-duration: 25s;
+      animation-delay: 2s;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translate(0, 0); }
+      25% { transform: translate(5%, 5%); }
+      50% { transform: translate(0, 10%); }
+      75% { transform: translate(-5%, 5%); }
+    }
+
+    .app-container {
+      max-width: 1200px;
+      width: 92%;
+      margin: 40px auto;
+      padding: 25px 0;
+      position: relative;
+    }
+
+    .glass-card {
+      background: rgba(26, 15, 51, 0.8);
+      backdrop-filter: var(--backdrop-blur);
+      -webkit-backdrop-filter: var(--backdrop-blur);
+      border-radius: var(--border-radius);
+      box-shadow: var(--card-shadow);
+      border: 1px solid rgba(108, 60, 233, 0.2);
+      overflow: hidden;
+      transition: var(--transition);
+    }
+
+    .app-header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .logo {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 5px;
+    }
+
+    .logo-icon {
+      font-size: 2rem;
+      margin-right: 10px;
+      background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    h1 {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: clamp(2rem, 5vw, 2.5rem);
+      background: linear-gradient(135deg, var(--secondary-color), var(--primary-light));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin: 0;
+      letter-spacing: -0.5px;
+    }
+
+    .tagline {
+      font-size: 1rem;
+      color: var(--muted-text);
+      margin-top: 5px;
+    }
+
+    .tab-container {
+      position: relative;
+      margin-bottom: 40px;
+    }
+
+    .nav-tabs {
+      display: flex;
+      justify-content: center;
+      border: none;
+      position: relative;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .nav-tab {
+      padding: 12px 24px;
+      background-color: rgba(26, 15, 51, 0.5);
+      border: 1px solid rgba(144, 102, 255, 0.1);
+      color: var(--muted-text);
+      font-weight: 500;
+      font-size: 0.95rem;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: var(--transition);
+      outline: none;
+      position: relative;
+      overflow: hidden;
+      z-index: 1;
+    }
+
+    .nav-tab:hover {
+      background-color: rgba(108, 60, 233, 0.1);
+      color: var(--light-text);
+    }
+
+    .nav-tab.active {
+      background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+      color: var(--light-text);
+      box-shadow: 0 5px 15px rgba(108, 60, 233, 0.4);
+      border: 1px solid var(--primary-light);
+    }
+
+    .nav-tab.active::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(
+        135deg, 
+        rgba(0, 229, 255, 0.2), 
+        rgba(144, 102, 255, 0)
+      );
+      z-index: -1;
+    }
+
+    .nav-tab i {
+      margin-right: 8px;
+      font-size: 0.9rem;
+    }
+
+    .content-container {
+      padding: 35px;
+      border-radius: var(--border-radius);
+    }
+
+    .form-container {
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    .form-group {
+      margin-bottom: 24px;
+      position: relative;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 10px;
+      font-weight: 500;
+      font-size: 0.95rem;
+      color: var(--muted-text);
+      transition: var(--transition);
+    }
+
+    .input-group {
+      position: relative;
+    }
+
+    .input-icon {
+      position: absolute;
+      left: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--muted-text);
+      font-size: 1rem;
+      transition: var(--transition);
+    }
+
+    input {
+      width: 100%;
+      padding: 15px 15px 15px 45px;
+      border-radius: var(--border-radius);
+      border: 1px solid rgba(144, 102, 255, 0.2);
+      background-color: var(--dark-input);
+      color: var(--light-text);
+      font-size: 1rem;
+      font-family: 'Poppins', sans-serif;
+      transition: var(--transition);
+    }
+
+    input:hover {
+      border-color: rgba(144, 102, 255, 0.4);
+    }
+
+    input:focus {
+      outline: none;
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 3px rgba(108, 60, 233, 0.2);
+    }
+
+    input:focus + .input-icon {
+      color: var(--primary-light);
+    }
+
+    .btn {
+      width: 100%;
+      padding: 15px 24px;
+      background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+      color: var(--light-text);
+      border: none;
+      border-radius: var(--border-radius);
+      font-family: 'Poppins', sans-serif;
+      font-weight: 600;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+      z-index: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, var(--primary-light), var(--primary-color));
+      opacity: 0;
+      z-index: -1;
+      transition: var(--transition);
+    }
+
+    .btn:hover::before {
+      opacity: 1;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 7px 20px rgba(108, 60, 233, 0.4);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      border: 1px solid var(--primary-color);
+      color: var(--primary-light);
+    }
+
+    .btn-secondary::before {
+      background: rgba(108, 60, 233, 0.1);
+    }
+
+    .btn-danger {
+      background: linear-gradient(135deg, var(--error-color), #c53060);
+    }
+
+    .btn-danger::before {
+      background: linear-gradient(135deg, #ff5588, var(--error-color));
+    }
+
+    .btn-icon {
+      margin-right: 8px;
+      font-size: 1rem;
+    }
+
+    .message {
+      margin-top: 20px;
+      padding: 12px;
+      border-radius: var(--border-radius);
+      font-size: 0.95rem;
+      font-weight: 500;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity 0.3s, transform 0.3s;
+      text-align: center;
+    }
+
+    .message.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .error {
+      background: rgba(255, 68, 119, 0.15);
+      border: 1px solid rgba(255, 68, 119, 0.3);
+      color: var(--error-color);
+    }
+
+    .success {
+      background: rgba(0, 229, 176, 0.15);
+      border: 1px solid rgba(0, 229, 176, 0.3);
+      color: var(--success-color);
+    }
+
+    .tab-content {
+      display: none;
+      animation: fadeIn 0.4s ease-in-out;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .button-group {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+      margin-top: 16px;
+    }
+
+    .card-title {
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-bottom: 24px;
+      color: var(--light-text);
+    }
+
+    .section-title {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-bottom: 20px;
+      color: var(--light-text);
+    }
+
+    .user-data-card {
+      background: rgba(20, 7, 46, 0.5);
+      border-radius: var(--border-radius);
+      padding: 24px;
+      margin-bottom: 24px;
+      border: 1px solid rgba(144, 102, 255, 0.1);
+      transition: var(--transition);
+    }
+
+    .user-data-card:hover {
+      border-color: rgba(144, 102, 255, 0.3);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .profile-card {
+      text-align: center;
+      padding: 35px;
+    }
+
+    .profile-picture {
+      width: 100px;
+      height: 100px;
+      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+      border-radius: 50%;
+      margin: 0 auto 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.5rem;
+      color: var(--light-text);
+    }
+
+    .profile-name {
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin-bottom: 5px;
+    }
+
+    .profile-email {
+      color: var(--muted-text);
+      margin-bottom: 25px;
+    }
+
+    .profile-meta {
+      display: flex;
+      justify-content: center;
+      gap: 25px;
+      margin-bottom: 30px;
+    }
+
+    .meta-item {
+      text-align: center;
+    }
+
+    .meta-value {
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--light-text);
+    }
+
+    .meta-label {
+      font-size: 0.85rem;
+      color: var(--muted-text);
+    }
+
+    .user-card {
+      display: flex;
+      align-items: center;
+      padding: 20px;
+      border-radius: var(--border-radius);
+      background: rgba(20, 7, 46, 0.5);
+      margin-bottom: 15px;
+      border: 1px solid rgba(144, 102, 255, 0.1);
+      transition: var(--transition);
+    }
+
+    .user-card:hover {
+      border-color: rgba(144, 102, 255, 0.3);
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .user-card-avatar {
+      width: 50px;
+      height: 50px;
+      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+      border-radius: 50%;
+      margin-right: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      color: var(--light-text);
+      flex-shrink: 0;
+    }
+
+    .user-card-content {
+      flex-grow: 1;
+    }
+
+    .user-card-name {
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .user-card-email {
+      font-size: 0.9rem;
+      color: var(--muted-text);
+    }
+
+    .user-card-id {
+      color: var(--muted-text);
+      font-size: 0.8rem;
+      margin-top: 4px;
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 40px 20px;
+      color: var(--muted-text);
+    }
+
+    .empty-state-icon {
+      font-size: 3rem;
+      margin-bottom: 20px;
+      opacity: 0.5;
+    }
+
+    .empty-state-text {
+      font-size: 1.1rem;
+      margin-bottom: 10px;
+    }
+
+    .empty-state-subtext {
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 768px) {
+      .content-container {
+        padding: 25px 20px;
+      }
+
+      .nav-tab {
+        padding: 10px 16px;
+        font-size: 0.9rem;
+      }
+
+      .app-container {
+        margin: 20px auto;
+      }
+
+      .profile-meta {
+        flex-direction: column;
+        gap: 15px;
+      }
+    }
+
+    .fade-in {
+      animation: fadeIn 0.6s ease-out forwards;
+    }
+
+    .slide-in {
+      animation: slideIn 0.5s ease-out forwards;
+    }
+
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Loader */
+    .loader-container {
+      display: none;
+      justify-content: center;
+      align-items: center;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(15, 6, 36, 0.7);
+      backdrop-filter: blur(5px);
+      z-index: 1000;
+      border-radius: var(--border-radius);
+    }
+
+    .loader {
+      width: 48px;
+      height: 48px;
+      border: 5px solid var(--primary-light);
+      border-bottom-color: transparent;
+      border-radius: 50%;
+      display: inline-block;
+      box-sizing: border-box;
+      animation: rotation 1s linear infinite;
+    }
+
+    @keyframes rotation {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .loader-container.active {
+      display: flex;
+    }
+  </style>
 </head>
 <body>
-<div class="background-decoration">
+  <div class="background-decoration">
     <div class="orb orb-1"></div>
     <div class="orb orb-2"></div>
     <div class="orb orb-3"></div>
-</div>
+  </div>
 
-<div class="app-container">
+  <div class="app-container">
+    <!-- Encabezado -->
     <div class="app-header slide-in">
-        <div class="logo">
-            <i class="fa-solid fa-shield-halved logo-icon"></i>
-        </div>
-        <h1>Nexus Auth</h1>
-        <p class="tagline">Plataforma segura de gestión de identidad</p>
+      <div class="logo">
+        <i class="fa-solid fa-shield-halved logo-icon"></i>
+      </div>
+      <h1>Nexus Auth</h1>
+      <p class="tagline">Plataforma segura de gestión de identidad</p>
     </div>
 
+    <!-- Pestañas -->
     <div class="tab-container slide-in">
-        <div class="nav-tabs">
-            <button class="nav-tab active" data-tab="login">
-                <i class="fas fa-sign-in-alt"></i>Iniciar Sesión
-            </button>
-            <button class="nav-tab" data-tab="register">
-                <i class="fas fa-user-plus"></i>Registrarse
-            </button>
-            <button class="nav-tab" data-tab="verify">
-                <i class="fas fa-check-circle"></i>Verificar
-            </button>
-            <button class="nav-tab" data-tab="profile">
-                <i class="fas fa-user-circle"></i>Perfil
-            </button>
-            <button class="nav-tab" data-tab="users">
-                <i class="fas fa-users"></i>Usuarios
-            </button>
-        </div>
+      <div class="nav-tabs">
+        <button class="nav-tab active" data-tab="login">
+          <i class="fas fa-sign-in-alt"></i>Iniciar Sesión
+        </button>
+        <button class="nav-tab" data-tab="register">
+          <i class="fas fa-user-plus"></i>Registrarse
+        </button>
+        <button class="nav-tab" data-tab="verify">
+          <i class="fas fa-check-circle"></i>Verificar
+        </button>
+        <button class="nav-tab" data-tab="profile">
+          <i class="fas fa-user-circle"></i>Perfil
+        </button>
+        <button class="nav-tab" data-tab="users">
+          <i class="fas fa-users"></i>Usuarios
+        </button>
+      </div>
     </div>
 
+    <!-- Contenido -->
     <div class="glass-card content-container fade-in">
-        <!-- Loader -->
-        <div class="loader-container" id="loaderContainer">
-            <span class="loader"></span>
-        </div>
+      <!-- Loader -->
+      <div class="loader-container" id="loaderContainer">
+        <span class="loader"></span>
+      </div>
 
-        <!-- Login Form -->
-        <div class="tab-content active" id="login">
-            <h2 class="card-title">Bienvenido de nuevo</h2>
-            <div class="form-container">
-                <div class="form-group">
-                    <label for="loginEmail">Correo electrónico</label>
-                    <div class="input-group">
-                        <input type="email" id="loginEmail" placeholder="nombre@ejemplo.com" required>
-                        <i class="fas fa-envelope input-icon"></i>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="loginPassword">Contraseña</label>
-                    <div class="input-group">
-                        <input type="password" id="loginPassword" placeholder="Ingresa tu contraseña" required>
-                        <i class="fas fa-lock input-icon"></i>
-                    </div>
-                </div>
-                <button id="loginButton" class="btn">
-                    <i class="fas fa-sign-in-alt btn-icon"></i>Iniciar Sesión
-                </button>
-                <div id="loginMessage" class="message"></div>
+      <!-- Login Form -->
+      <div class="tab-content active" id="login">
+        <h2 class="card-title">Bienvenido de nuevo</h2>
+        <div class="form-container">
+          <div class="form-group">
+            <label for="loginEmail">Correo electrónico</label>
+            <div class="input-group">
+              <input 
+                type="email" 
+                id="loginEmail" 
+                placeholder="nombre@ejemplo.com" 
+                required
+              />
+              <i class="fas fa-envelope input-icon"></i>
             </div>
-        </div>
-
-        <!-- Register Form -->
-        <div class="tab-content" id="register">
-            <h2 class="card-title">Crear cuenta nueva</h2>
-            <div class="form-container">
-                <div class="form-group">
-                    <label for="registerUsername">Nombre de usuario</label>
-                    <div class="input-group">
-                        <input type="text" id="registerUsername" placeholder="Elige un nombre de usuario" required>
-                        <i class="fas fa-user input-icon"></i>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="registerEmail">Correo electrónico</label>
-                    <div class="input-group">
-                        <input type="email" id="registerEmail" placeholder="nombre@ejemplo.com" required>
-                        <i class="fas fa-envelope input-icon"></i>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="registerPassword">Contraseña</label>
-                    <div class="input-group">
-                        <input type="password" id="registerPassword" placeholder="Crea una contraseña segura" required>
-                        <i class="fas fa-lock input-icon"></i>
-                    </div>
-                </div>
-                <button id="registerButton" class="btn">
-                    <i class="fas fa-user-plus btn-icon"></i>Crear cuenta
-                </button>
-                <div id="registerMessage" class="message"></div>
+          </div>
+          <div class="form-group">
+            <label for="loginPassword">Contraseña</label>
+            <div class="input-group">
+              <input 
+                type="password" 
+                id="loginPassword" 
+                placeholder="Ingresa tu contraseña" 
+                required
+              />
+              <i class="fas fa-lock input-icon"></i>
             </div>
+          </div>
+          <button id="loginButton" class="btn">
+            <i class="fas fa-sign-in-alt btn-icon"></i>Iniciar Sesión
+          </button>
+          <div id="loginMessage" class="message"></div>
         </div>
+      </div>
 
-        <!-- Verify Form -->
-        <div class="tab-content" id="verify">
-            <h2 class="card-title">Verificar cuenta</h2>
-            <div class="form-container">
-                <div class="form-group">
-                    <label for="verifyEmail">Correo electrónico</label>
-                    <div class="input-group">
-                        <input type="email" id="verifyEmail" placeholder="nombre@ejemplo.com" required>
-                        <i class="fas fa-envelope input-icon"></i>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="verifyCode">Código de verificación</label>
-                    <div class="input-group">
-                        <input type="text" id="verifyCode" placeholder="Ingresa el código recibido" required>
-                        <i class="fas fa-key input-icon"></i>
-                    </div>
-                </div>
-                <div class="button-group">
-                    <button id="verifyButton" class="btn">
-                        <i class="fas fa-check-circle btn-icon"></i>Verificar cuenta
-                    </button>
-                    <button id="resendButton" class="btn btn-secondary">
-                        <i class="fas fa-paper-plane btn-icon"></i>Reenviar código
-                    </button>
-                </div>
-                <div id="verifyMessage" class="message"></div>
+      <!-- Register Form -->
+      <div class="tab-content" id="register">
+        <h2 class="card-title">Crear cuenta nueva</h2>
+        <div class="form-container">
+          <div class="form-group">
+            <label for="registerUsername">Nombre de usuario</label>
+            <div class="input-group">
+              <input 
+                type="text" 
+                id="registerUsername" 
+                placeholder="Elige un nombre de usuario" 
+                required
+              />
+              <i class="fas fa-user input-icon"></i>
             </div>
-        </div>
-
-        <!-- Profile -->
-        <div class="tab-content" id="profile">
-            <div id="profileContent">
-                <div class="empty-state" id="emptyProfileState">
-                    <i class="fas fa-user-circle empty-state-icon"></i>
-                    <p class="empty-state-text">Inicia sesión para ver tu perfil</p>
-                    <p class="empty-state-subtext">La información de tu cuenta se mostrará aquí</p>
-                </div>
-
-                <div class="profile-card" id="profileCard" style="display: none;">
-                    <div class="profile-picture" id="profileAvatar">
-                        <i class="fas fa-user"></i>
-                    </div>
-                    <h2 class="profile-name" id="profileName">Nombre de Usuario</h2>
-                    <p class="profile-email" id="profileEmail">usuario@ejemplo.com</p>
-
-                    <div class="profile-meta">
-                        <div class="meta-item">
-                            <div class="meta-value" id="profileId">-</div>
-                            <div class="meta-label">ID de Usuario</div>
-                        </div>
-                        <div class="meta-item">
-                            <div class="meta-value">
-                                <i class="fas fa-check-circle" style="color: var(--success-color);"></i>
-                            </div>
-                            <div class="meta-label">Verificado</div>
-                        </div>
-                    </div>
-
-                    <button id="logoutButton" class="btn btn-danger">
-                        <i class="fas fa-sign-out-alt btn-icon"></i>Cerrar sesión
-                    </button>
-                </div>
+          </div>
+          <div class="form-group">
+            <label for="registerEmail">Correo electrónico</label>
+            <div class="input-group">
+              <input 
+                type="email" 
+                id="registerEmail" 
+                placeholder="nombre@ejemplo.com" 
+                required
+              />
+              <i class="fas fa-envelope input-icon"></i>
             </div>
+          </div>
+          <div class="form-group">
+            <label for="registerPassword">Contraseña</label>
+            <div class="input-group">
+              <input 
+                type="password" 
+                id="registerPassword" 
+                placeholder="Crea una contraseña segura" 
+                required
+              />
+              <i class="fas fa-lock input-icon"></i>
+            </div>
+          </div>
+          <button id="registerButton" class="btn">
+            <i class="fas fa-user-plus btn-icon"></i>Crear cuenta
+          </button>
+          <div id="registerMessage" class="message"></div>
         </div>
+      </div>
 
-        <!-- Users List -->
-        <div class="tab-content" id="users">
-            <h2 class="section-title">Directorio de usuarios</h2>
+      <!-- Verify Form -->
+      <div class="tab-content" id="verify">
+        <h2 class="card-title">Verificar cuenta</h2>
+        <div class="form-container">
+          <div class="form-group">
+            <label for="verifyEmail">Correo electrónico</label>
+            <div class="input-group">
+              <input 
+                type="email" 
+                id="verifyEmail" 
+                placeholder="nombre@ejemplo.com" 
+                required
+              />
+              <i class="fas fa-envelope input-icon"></i>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="verifyCode">Código de verificación</label>
+            <div class="input-group">
+              <input 
+                type="text" 
+                id="verifyCode" 
+                placeholder="Ingresa el código recibido" 
+                required
+              />
+              <i class="fas fa-key input-icon"></i>
+            </div>
+          </div>
+          <div class="button-group">
+            <button id="verifyButton" class="btn">
+              <i class="fas fa-check-circle btn-icon"></i>Verificar cuenta
+            </button>
+            <button id="resendButton" class="btn btn-secondary">
+              <i class="fas fa-paper-plane btn-icon"></i>Reenviar código
+            </button>
+          </div>
+          <div id="verifyMessage" class="message"></div>
+        </div>
+      </div>
 
-            <div class="empty-state" id="emptyUsersState">
-                <i class="fas fa-users empty-state-icon"></i>
-                <p class="empty-state-text">Inicia sesión para ver los usuarios</p>
-                <p class="empty-state-subtext">La lista de usuarios registrados se mostrará aquí</p>
+      <!-- Profile -->
+      <div class="tab-content" id="profile">
+        <div id="profileContent">
+          <div class="empty-state" id="emptyProfileState">
+            <i class="fas fa-user-circle empty-state-icon"></i>
+            <p class="empty-state-text">Inicia sesión para ver tu perfil</p>
+            <p class="empty-state-subtext">La información de tu cuenta se mostrará aquí</p>
+          </div>
+
+          <div class="profile-card" id="profileCard" style="display: none;">
+            <div class="profile-picture" id="profileAvatar">
+              <i class="fas fa-user"></i>
+            </div>
+            <h2 class="profile-name" id="profileName">Nombre de Usuario</h2>
+            <p class="profile-email" id="profileEmail">usuario@ejemplo.com</p>
+
+            <div class="profile-meta">
+              <div class="meta-item">
+                <div class="meta-value" id="profileId">-</div>
+                <div class="meta-label">ID de Usuario</div>
+              </div>
+              <div class="meta-item">
+                <div class="meta-value">
+                  <i 
+                    class="fas fa-check-circle" 
+                    style="color: var(--success-color);"
+                  ></i>
+                </div>
+                <div class="meta-label">Verificado</div>
+              </div>
             </div>
 
-            <div id="usersList" style="display: none;"></div>
+            <button id="logoutButton" class="btn btn-danger">
+              <i class="fas fa-sign-out-alt btn-icon"></i>Cerrar sesión
+            </button>
+          </div>
         </div>
+      </div>
+
+      <!-- Users List -->
+      <div class="tab-content" id="users">
+        <h2 class="section-title">Directorio de usuarios</h2>
+
+        <div class="empty-state" id="emptyUsersState">
+          <i class="fas fa-users empty-state-icon"></i>
+          <p class="empty-state-text">Inicia sesión para ver los usuarios</p>
+          <p class="empty-state-subtext">La lista de usuarios registrados se mostrará aquí</p>
+        </div>
+
+        <div id="usersList" style="display: none;"></div>
+      </div>
     </div>
-</div>
+  </div>
 
-<script>
+  <script>
     // Configuración de la API
     const API_URL = 'https://spring-security-jwt-login-email.onrender.com';
 
@@ -832,282 +890,310 @@
 
     // Mostrar/ocultar loader
     function showLoader() {
-        loaderContainer.classList.add('active');
+      loaderContainer.classList.add('active');
     }
     function hideLoader() {
-        loaderContainer.classList.remove('active');
+      loaderContainer.classList.remove('active');
     }
 
     // Cambio de pestañas
     navTabs.forEach(tab => {
-        tab.addEventListener('click', () => {
-            const tabId = tab.getAttribute('data-tab');
+      tab.addEventListener('click', () => {
+        const tabId = tab.getAttribute('data-tab');
 
-            // Actualiza clases activas en pestañas
-            navTabs.forEach(t => t.classList.remove('active'));
-            tab.classList.add('active');
+        // Quitar "active" de todas las pestañas
+        navTabs.forEach(t => t.classList.remove('active'));
+        // Agregar "active" a la pestaña actual
+        tab.classList.add('active');
 
-            // Actualiza contenido activo
-            tabContents.forEach(content => {
-                content.classList.remove('active');
-                if (content.id === tabId) {
-                    content.classList.add('active');
-                }
-            });
-
-            // Si se selecciona perfil o usuarios y está autenticado, cargar datos
-            if (tabId === 'profile' && authToken) {
-                loadUserProfile();
-            } else if (tabId === 'users' && authToken) {
-                loadAllUsers();
-            }
+        // Ocultar todo el contenido y mostrar solo el de la pestaña seleccionada
+        tabContents.forEach(content => {
+          content.classList.remove('active');
+          if (content.id === tabId) {
+            content.classList.add('active');
+          }
         });
+
+        // Si se selecciona Perfil o Usuarios y existe un token, cargar datos
+        if (tabId === 'profile' && authToken) {
+          loadUserProfile();
+        } else if (tabId === 'users' && authToken) {
+          loadAllUsers();
+        }
+      });
     });
 
     // Función para mostrar mensajes
     function showMessage(element, message, type) {
-        element.textContent = message;
-        element.className = `message ${type} visible`;
-        setTimeout(() => {
-            element.className = 'message';
-        }, 5000);
+      element.textContent = message;
+      element.className = `message ${type} visible`;
+      setTimeout(() => {
+        element.className = 'message';
+      }, 5000);
     }
 
     // Login
     document.getElementById('loginButton').addEventListener('click', async () => {
-        const email = document.getElementById('loginEmail').value;
-        const password = document.getElementById('loginPassword').value;
-        const messageElement = document.getElementById('loginMessage');
+      const email = document.getElementById('loginEmail').value;
+      const password = document.getElementById('loginPassword').value;
+      const messageElement = document.getElementById('loginMessage');
 
-        if (!email || !password) {
-            showMessage(messageElement, 'Por favor completa todos los campos', 'error');
-            return;
-        }
+      if (!email || !password) {
+        showMessage(messageElement, 'Por favor completa todos los campos', 'error');
+        return;
+      }
 
-        showLoader();
-        try {
-            const response = await fetch(`${API_URL}/auth/login`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ email, password })
-            });
-            const data = await response.json();
-            if (response.ok) {
-                authToken = data.token;
-                localStorage.setItem('authToken', authToken);
-                showMessage(messageElement, 'Inicio de sesión exitoso', 'success');
-                // Cambiar a la pestaña de perfil
-                document.querySelector('[data-tab="profile"]').click();
-            } else {
-                showMessage(messageElement, data.message || 'Error al iniciar sesión', 'error');
-            }
-        } catch (error) {
-            showMessage(messageElement, 'Error en la comunicación con el servidor', 'error');
-        } finally {
-            hideLoader();
+      showLoader();
+      try {
+        const response = await fetch(`${API_URL}/auth/login`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, password })
+        });
+        const data = await response.json();
+
+        if (response.ok) {
+          authToken = data.token;
+          localStorage.setItem('authToken', authToken);
+          showMessage(messageElement, 'Inicio de sesión exitoso', 'success');
+          // Cambiar a la pestaña de perfil
+          document.querySelector('[data-tab="profile"]').click();
+        } else {
+          showMessage(messageElement, data.message || 'Error al iniciar sesión', 'error');
         }
+      } catch (error) {
+        showMessage(messageElement, 'Error en la comunicación con el servidor', 'error');
+      } finally {
+        hideLoader();
+      }
     });
 
     // Registro
     document.getElementById('registerButton').addEventListener('click', async () => {
-        const username = document.getElementById('registerUsername').value;
-        const email = document.getElementById('registerEmail').value;
-        const password = document.getElementById('registerPassword').value;
-        const messageElement = document.getElementById('registerMessage');
+      const username = document.getElementById('registerUsername').value;
+      const email = document.getElementById('registerEmail').value;
+      const password = document.getElementById('registerPassword').value;
+      const messageElement = document.getElementById('registerMessage');
 
-        if (!username || !email || !password) {
-            showMessage(messageElement, 'Por favor completa todos los campos', 'error');
-            return;
-        }
+      if (!username || !email || !password) {
+        showMessage(messageElement, 'Por favor completa todos los campos', 'error');
+        return;
+      }
 
-        showLoader();
-        try {
-            const response = await fetch(`${API_URL}/auth/register`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ username, email, password })
-            });
-            const data = await response.json();
-            if (response.ok) {
-                showMessage(messageElement, 'Cuenta creada exitosamente. Revisa tu correo para verificar.', 'success');
-                // Cambiar a la pestaña de verificación
-                document.querySelector('[data-tab="verify"]').click();
-            } else {
-                showMessage(messageElement, data.message || 'Error al crear la cuenta', 'error');
-            }
-        } catch (error) {
-            showMessage(messageElement, 'Error en la comunicación con el servidor', 'error');
-        } finally {
-            hideLoader();
+      showLoader();
+      try {
+        const response = await fetch(`${API_URL}/auth/register`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ username, email, password })
+        });
+        const data = await response.json();
+
+        if (response.ok) {
+          showMessage(messageElement, 'Cuenta creada exitosamente. Revisa tu correo para verificar.', 'success');
+          // Cambiar a la pestaña de verificación
+          document.querySelector('[data-tab="verify"]').click();
+        } else {
+          showMessage(messageElement, data.message || 'Error al crear la cuenta', 'error');
         }
+      } catch (error) {
+        showMessage(messageElement, 'Error en la comunicación con el servidor', 'error');
+      } finally {
+        hideLoader();
+      }
     });
 
     // Verificar cuenta
     document.getElementById('verifyButton').addEventListener('click', async () => {
-        const email = document.getElementById('verifyEmail').value;
-        const code = document.getElementById('verifyCode').value;
-        const messageElement = document.getElementById('verifyMessage');
+      const email = document.getElementById('verifyEmail').value;
+      const code = document.getElementById('verifyCode').value;
+      const messageElement = document.getElementById('verifyMessage');
 
-        if (!email || !code) {
-            showMessage(messageElement, 'Por favor completa todos los campos', 'error');
-            return;
-        }
+      if (!email || !code) {
+        showMessage(messageElement, 'Por favor completa todos los campos', 'error');
+        return;
+      }
 
-        showLoader();
-        try {
-            const response = await fetch(`${API_URL}/auth/verify`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ email, code })
-            });
-            const data = await response.json();
-            if (response.ok) {
-                showMessage(messageElement, 'Cuenta verificada exitosamente', 'success');
-                // Cambiar a la pestaña de inicio de sesión
-                document.querySelector('[data-tab="login"]').click();
-            } else {
-                showMessage(messageElement, data.message || 'Error al verificar la cuenta', 'error');
-            }
-        } catch (error) {
-            showMessage(messageElement, 'Error en la comunicación con el servidor', 'error');
-        } finally {
-            hideLoader();
+      showLoader();
+      try {
+        const response = await fetch(`${API_URL}/auth/verify`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, code })
+        });
+        const data = await response.json();
+
+        if (response.ok) {
+          showMessage(messageElement, 'Cuenta verificada exitosamente', 'success');
+          // Cambiar a la pestaña de inicio de sesión
+          document.querySelector('[data-tab="login"]').click();
+        } else {
+          showMessage(messageElement, data.message || 'Error al verificar la cuenta', 'error');
         }
+      } catch (error) {
+        showMessage(messageElement, 'Error en la comunicación con el servidor', 'error');
+      } finally {
+        hideLoader();
+      }
     });
 
     // Reenviar código de verificación
     document.getElementById('resendButton').addEventListener('click', async () => {
-        const email = document.getElementById('verifyEmail').value;
-        const messageElement = document.getElementById('verifyMessage');
+      const email = document.getElementById('verifyEmail').value;
+      const messageElement = document.getElementById('verifyMessage');
 
-        if (!email) {
-            showMessage(messageElement, 'Por favor ingresa tu correo electrónico', 'error');
-            return;
-        }
+      if (!email) {
+        showMessage(messageElement, 'Por favor ingresa tu correo electrónico', 'error');
+        return;
+      }
 
-        showLoader();
-        try {
-            const response = await fetch(`${API_URL}/auth/resend`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ email })
-            });
-            const data = await response.json();
-            if (response.ok) {
-                showMessage(messageElement, 'Código reenviado. Revisa tu correo electrónico.', 'success');
-            } else {
-                showMessage(messageElement, data.message || 'Error al reenviar el código', 'error');
-            }
-        } catch (error) {
-            showMessage(messageElement, 'Error en la comunicación con el servidor', 'error');
-        } finally {
-            hideLoader();
+      showLoader();
+      try {
+        const response = await fetch(`${API_URL}/auth/resend`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email })
+        });
+        const data = await response.json();
+
+        if (response.ok) {
+          showMessage(messageElement, 'Código reenviado. Revisa tu correo electrónico.', 'success');
+        } else {
+          showMessage(messageElement, data.message || 'Error al reenviar el código', 'error');
         }
+      } catch (error) {
+        showMessage(messageElement, 'Error en la comunicación con el servidor', 'error');
+      } finally {
+        hideLoader();
+      }
     });
 
     // Cerrar sesión
     document.getElementById('logoutButton').addEventListener('click', () => {
-        authToken = null;
-        localStorage.removeItem('authToken');
-        currentUser = null;
-        showMessage(document.getElementById('loginMessage'), 'Sesión cerrada', 'success');
-        document.querySelector('[data-tab="login"]').click();
+      authToken = null;
+      localStorage.removeItem('authToken');
+      currentUser = null;
+      showMessage(document.getElementById('loginMessage'), 'Sesión cerrada', 'success');
+      document.querySelector('[data-tab="login"]').click();
     });
 
     // Cargar perfil del usuario
     async function loadUserProfile() {
-        showLoader();
-        try {
-            const response = await fetch(`${API_URL}/auth/profile`, {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${authToken}`
-                }
-            });
-            const data = await response.json();
-            if (response.ok) {
-                currentUser = data;
-                document.getElementById('emptyProfileState').style.display = 'none';
-                document.getElementById('profileCard').style.display = 'block';
-                document.getElementById('profileName').textContent = currentUser.username || 'Nombre de Usuario';
-                document.getElementById('profileEmail').textContent = currentUser.email || 'usuario@ejemplo.com';
-                document.getElementById('profileId').textContent = currentUser.id || '-';
-            } else {
-                showMessage(document.getElementById('loginMessage'), data.message || 'Error al cargar perfil', 'error');
-            }
-        } catch (error) {
-            showMessage(document.getElementById('loginMessage'), 'Error en la comunicación con el servidor', 'error');
-        } finally {
-            hideLoader();
+      showLoader();
+      try {
+        const response = await fetch(`${API_URL}/auth/profile`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${authToken}`
+          }
+        });
+        const data = await response.json();
+
+        if (response.ok) {
+          currentUser = data;
+          document.getElementById('emptyProfileState').style.display = 'none';
+          document.getElementById('profileCard').style.display = 'block';
+          document.getElementById('profileName').textContent = currentUser.username || 'Nombre de Usuario';
+          document.getElementById('profileEmail').textContent = currentUser.email || 'usuario@ejemplo.com';
+          document.getElementById('profileId').textContent = currentUser.id || '-';
+        } else {
+          showMessage(
+            document.getElementById('loginMessage'),
+            data.message || 'Error al cargar perfil',
+            'error'
+          );
         }
+      } catch (error) {
+        showMessage(
+          document.getElementById('loginMessage'),
+          'Error en la comunicación con el servidor',
+          'error'
+        );
+      } finally {
+        hideLoader();
+      }
     }
 
     // Cargar lista de usuarios
     async function loadAllUsers() {
-        showLoader();
-        try {
-            const response = await fetch(`${API_URL}/auth/users`, {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${authToken}`
-                }
+      showLoader();
+      try {
+        const response = await fetch(`${API_URL}/auth/users`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${authToken}`
+          }
+        });
+        const data = await response.json();
+
+        if (response.ok) {
+          const usersListContainer = document.getElementById('usersList');
+          const emptyUsersState = document.getElementById('emptyUsersState');
+          usersListContainer.innerHTML = '';
+
+          if (data.length === 0) {
+            emptyUsersState.style.display = 'block';
+            usersListContainer.style.display = 'none';
+          } else {
+            emptyUsersState.style.display = 'none';
+            usersListContainer.style.display = 'block';
+
+            data.forEach(user => {
+              const userCard = document.createElement('div');
+              userCard.className = 'user-card';
+
+              const avatar = document.createElement('div');
+              avatar.className = 'user-card-avatar';
+              avatar.innerHTML = '<i class="fas fa-user"></i>';
+
+              const content = document.createElement('div');
+              content.className = 'user-card-content';
+
+              const nameEl = document.createElement('div');
+              nameEl.className = 'user-card-name';
+              nameEl.textContent = user.username;
+
+              const emailEl = document.createElement('div');
+              emailEl.className = 'user-card-email';
+              emailEl.textContent = user.email;
+
+              const idEl = document.createElement('div');
+              idEl.className = 'user-card-id';
+              idEl.textContent = `ID: ${user.id}`;
+
+              content.appendChild(nameEl);
+              content.appendChild(emailEl);
+              content.appendChild(idEl);
+
+              userCard.appendChild(avatar);
+              userCard.appendChild(content);
+              usersListContainer.appendChild(userCard);
             });
-            const data = await response.json();
-            if (response.ok) {
-                const usersListContainer = document.getElementById('usersList');
-                const emptyUsersState = document.getElementById('emptyUsersState');
-                usersListContainer.innerHTML = '';
-                if (data.length === 0) {
-                    emptyUsersState.style.display = 'block';
-                    usersListContainer.style.display = 'none';
-                } else {
-                    emptyUsersState.style.display = 'none';
-                    usersListContainer.style.display = 'block';
-                    data.forEach(user => {
-                        const userCard = document.createElement('div');
-                        userCard.className = 'user-card';
-
-                        const avatar = document.createElement('div');
-                        avatar.className = 'user-card-avatar';
-                        avatar.innerHTML = '<i class="fas fa-user"></i>';
-
-                        const content = document.createElement('div');
-                        content.className = 'user-card-content';
-                        const nameEl = document.createElement('div');
-                        nameEl.className = 'user-card-name';
-                        nameEl.textContent = user.username;
-                        const emailEl = document.createElement('div');
-                        emailEl.className = 'user-card-email';
-                        emailEl.textContent = user.email;
-                        const idEl = document.createElement('div');
-                        idEl.className = 'user-card-id';
-                        idEl.textContent = `ID: ${user.id}`;
-
-                        content.appendChild(nameEl);
-                        content.appendChild(emailEl);
-                        content.appendChild(idEl);
-
-                        userCard.appendChild(avatar);
-                        userCard.appendChild(content);
-                        usersListContainer.appendChild(userCard);
-                    });
-                }
-            } else {
-                showMessage(document.getElementById('loginMessage'), data.message || 'Error al cargar usuarios', 'error');
-            }
-        } catch (error) {
-            showMessage(document.getElementById('loginMessage'), 'Error en la comunicación con el servidor', 'error');
-        } finally {
-            hideLoader();
+          }
+        } else {
+          showMessage(
+            document.getElementById('loginMessage'),
+            data.message || 'Error al cargar usuarios',
+            'error'
+          );
         }
+      } catch (error) {
+        showMessage(
+          document.getElementById('loginMessage'),
+          'Error en la comunicación con el servidor',
+          'error'
+        );
+      } finally {
+        hideLoader();
+      }
     }
 
     // Si existe sesión iniciada, cargar perfil automáticamente
     if (authToken) {
-        document.querySelector('[data-tab="profile"]').click();
+      document.querySelector('[data-tab="profile"]').click();
     }
-</script>
+  </script>
 </body>
 </html>
