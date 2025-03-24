@@ -4,11 +4,11 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Nexus Auth | Plataforma de Gestión de Usuarios</title>
-  
+
   <!-- Iconos de Font Awesome -->
-  <link 
-    rel="stylesheet" 
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" 
+  <link
+          rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
   />
 
   <style>
@@ -229,9 +229,9 @@
       width: 100%;
       height: 100%;
       background: linear-gradient(
-        135deg, 
-        rgba(0, 229, 255, 0.2), 
-        rgba(144, 102, 255, 0)
+              135deg,
+              rgba(0, 229, 255, 0.2),
+              rgba(144, 102, 255, 0)
       );
       z-index: -1;
     }
@@ -655,545 +655,545 @@
   </style>
 </head>
 <body>
-  <div class="background-decoration">
-    <div class="orb orb-1"></div>
-    <div class="orb orb-2"></div>
-    <div class="orb orb-3"></div>
+<div class="background-decoration">
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+</div>
+
+<div class="app-container">
+  <!-- Encabezado -->
+  <div class="app-header slide-in">
+    <div class="logo">
+      <i class="fa-solid fa-shield-halved logo-icon"></i>
+    </div>
+    <h1>Nexus Auth</h1>
+    <p class="tagline">Plataforma segura de gestión de identidad</p>
   </div>
 
-  <div class="app-container">
-    <!-- Encabezado -->
-    <div class="app-header slide-in">
-      <div class="logo">
-        <i class="fa-solid fa-shield-halved logo-icon"></i>
-      </div>
-      <h1>Nexus Auth</h1>
-      <p class="tagline">Plataforma segura de gestión de identidad</p>
-    </div>
-
-    <!-- Pestañas -->
-    <div class="tab-container slide-in">
-      <div class="nav-tabs">
-        <button class="nav-tab active" data-tab="login">
-          <i class="fas fa-sign-in-alt"></i>Iniciar Sesión
-        </button>
-        <button class="nav-tab" data-tab="register">
-          <i class="fas fa-user-plus"></i>Registrarse
-        </button>
-        <button class="nav-tab" data-tab="verify">
-          <i class="fas fa-check-circle"></i>Verificar
-        </button>
-        <button class="nav-tab" data-tab="profile">
-          <i class="fas fa-user-circle"></i>Perfil
-        </button>
-        <button class="nav-tab" data-tab="users">
-          <i class="fas fa-users"></i>Usuarios
-        </button>
-      </div>
-    </div>
-
-    <!-- Contenido -->
-    <div class="glass-card content-container fade-in">
-      <!-- Loader -->
-      <div class="loader-container" id="loaderContainer">
-        <span class="loader"></span>
-      </div>
-
-      <!-- Login Form -->
-      <div class="tab-content active" id="login">
-        <h2 class="card-title">Bienvenido de nuevo</h2>
-        <div class="form-container">
-          <div class="form-group">
-            <label for="loginEmail">Correo electrónico</label>
-            <div class="input-group">
-              <input 
-                type="email" 
-                id="loginEmail" 
-                placeholder="nombre@ejemplo.com" 
-                required
-              />
-              <i class="fas fa-envelope input-icon"></i>
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="loginPassword">Contraseña</label>
-            <div class="input-group">
-              <input 
-                type="password" 
-                id="loginPassword" 
-                placeholder="Ingresa tu contraseña" 
-                required
-              />
-              <i class="fas fa-lock input-icon"></i>
-            </div>
-          </div>
-          <button id="loginButton" class="btn">
-            <i class="fas fa-sign-in-alt btn-icon"></i>Iniciar Sesión
-          </button>
-          <div id="loginMessage" class="message"></div>
-        </div>
-      </div>
-
-      <!-- Register Form -->
-      <div class="tab-content" id="register">
-        <h2 class="card-title">Crear cuenta nueva</h2>
-        <div class="form-container">
-          <div class="form-group">
-            <label for="registerUsername">Nombre de usuario</label>
-            <div class="input-group">
-              <input 
-                type="text" 
-                id="registerUsername" 
-                placeholder="Elige un nombre de usuario" 
-                required
-              />
-              <i class="fas fa-user input-icon"></i>
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="registerEmail">Correo electrónico</label>
-            <div class="input-group">
-              <input 
-                type="email" 
-                id="registerEmail" 
-                placeholder="nombre@ejemplo.com" 
-                required
-              />
-              <i class="fas fa-envelope input-icon"></i>
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="registerPassword">Contraseña</label>
-            <div class="input-group">
-              <input 
-                type="password" 
-                id="registerPassword" 
-                placeholder="Crea una contraseña segura" 
-                required
-              />
-              <i class="fas fa-lock input-icon"></i>
-            </div>
-          </div>
-          <button id="registerButton" class="btn">
-            <i class="fas fa-user-plus btn-icon"></i>Crear cuenta
-          </button>
-          <div id="registerMessage" class="message"></div>
-        </div>
-      </div>
-
-      <!-- Verify Form -->
-      <div class="tab-content" id="verify">
-        <h2 class="card-title">Verificar cuenta</h2>
-        <div class="form-container">
-          <div class="form-group">
-            <label for="verifyEmail">Correo electrónico</label>
-            <div class="input-group">
-              <input 
-                type="email" 
-                id="verifyEmail" 
-                placeholder="nombre@ejemplo.com" 
-                required
-              />
-              <i class="fas fa-envelope input-icon"></i>
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="verifyCode">Código de verificación</label>
-            <div class="input-group">
-              <input 
-                type="text" 
-                id="verifyCode" 
-                placeholder="Ingresa el código recibido" 
-                required
-              />
-              <i class="fas fa-key input-icon"></i>
-            </div>
-          </div>
-          <div class="button-group">
-            <button id="verifyButton" class="btn">
-              <i class="fas fa-check-circle btn-icon"></i>Verificar cuenta
-            </button>
-            <button id="resendButton" class="btn btn-secondary">
-              <i class="fas fa-paper-plane btn-icon"></i>Reenviar código
-            </button>
-          </div>
-          <div id="verifyMessage" class="message"></div>
-        </div>
-      </div>
-
-      <!-- Profile -->
-      <div class="tab-content" id="profile">
-        <div id="profileContent">
-          <div class="empty-state" id="emptyProfileState">
-            <i class="fas fa-user-circle empty-state-icon"></i>
-            <p class="empty-state-text">Inicia sesión para ver tu perfil</p>
-            <p class="empty-state-subtext">La información de tu cuenta se mostrará aquí</p>
-          </div>
-
-          <div class="profile-card" id="profileCard" style="display: none;">
-            <div class="profile-picture" id="profileAvatar">
-              <i class="fas fa-user"></i>
-            </div>
-            <h2 class="profile-name" id="profileName">Nombre de Usuario</h2>
-            <p class="profile-email" id="profileEmail">usuario@ejemplo.com</p>
-
-            <div class="profile-meta">
-              <div class="meta-item">
-                <div class="meta-value" id="profileId">-</div>
-                <div class="meta-label">ID de Usuario</div>
-              </div>
-              <div class="meta-item">
-                <div class="meta-value">
-                  <i 
-                    class="fas fa-check-circle" 
-                    style="color: var(--success-color);"
-                  ></i>
-                </div>
-                <div class="meta-label">Verificado</div>
-              </div>
-            </div>
-
-            <button id="logoutButton" class="btn btn-danger">
-              <i class="fas fa-sign-out-alt btn-icon"></i>Cerrar sesión
-            </button>
-          </div>
-        </div>
-      </div>
-
-      <!-- Users List -->
-      <div class="tab-content" id="users">
-        <h2 class="section-title">Directorio de usuarios</h2>
-
-        <div class="empty-state" id="emptyUsersState">
-          <i class="fas fa-users empty-state-icon"></i>
-          <p class="empty-state-text">Inicia sesión para ver los usuarios</p>
-          <p class="empty-state-subtext">La lista de usuarios registrados se mostrará aquí</p>
-        </div>
-
-        <div id="usersList" style="display: none;"></div>
-      </div>
+  <!-- Pestañas -->
+  <div class="tab-container slide-in">
+    <div class="nav-tabs">
+      <button class="nav-tab active" data-tab="login">
+        <i class="fas fa-sign-in-alt"></i>Iniciar Sesión
+      </button>
+      <button class="nav-tab" data-tab="register">
+        <i class="fas fa-user-plus"></i>Registrarse
+      </button>
+      <button class="nav-tab" data-tab="verify">
+        <i class="fas fa-check-circle"></i>Verificar
+      </button>
+      <button class="nav-tab" data-tab="profile">
+        <i class="fas fa-user-circle"></i>Perfil
+      </button>
+      <button class="nav-tab" data-tab="users">
+        <i class="fas fa-users"></i>Usuarios
+      </button>
     </div>
   </div>
 
-  <script>
-    // Configuración de la API
-    const API_URL = 'https://spring-security-jwt-login-email.onrender.com';
+  <!-- Contenido -->
+  <div class="glass-card content-container fade-in">
+    <!-- Loader -->
+    <div class="loader-container" id="loaderContainer">
+      <span class="loader"></span>
+    </div>
 
-    // Elementos del DOM
-    const navTabs = document.querySelectorAll('.nav-tab');
-    const tabContents = document.querySelectorAll('.tab-content');
-    const loaderContainer = document.getElementById('loaderContainer');
+    <!-- Login Form -->
+    <div class="tab-content active" id="login">
+      <h2 class="card-title">Bienvenido de nuevo</h2>
+      <div class="form-container">
+        <div class="form-group">
+          <label for="loginEmail">Correo electrónico</label>
+          <div class="input-group">
+            <input
+                    type="email"
+                    id="loginEmail"
+                    placeholder="nombre@ejemplo.com"
+                    required
+            />
+            <i class="fas fa-envelope input-icon"></i>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="loginPassword">Contraseña</label>
+          <div class="input-group">
+            <input
+                    type="password"
+                    id="loginPassword"
+                    placeholder="Ingresa tu contraseña"
+                    required
+            />
+            <i class="fas fa-lock input-icon"></i>
+          </div>
+        </div>
+        <button id="loginButton" class="btn">
+          <i class="fas fa-sign-in-alt btn-icon"></i>Iniciar Sesión
+        </button>
+        <div id="loginMessage" class="message"></div>
+      </div>
+    </div>
 
-    // Variables globales
-    let authToken = localStorage.getItem('authToken');
-    let currentUser = null;
+    <!-- Register Form -->
+    <div class="tab-content" id="register">
+      <h2 class="card-title">Crear cuenta nueva</h2>
+      <div class="form-container">
+        <div class="form-group">
+          <label for="registerUsername">Nombre de usuario</label>
+          <div class="input-group">
+            <input
+                    type="text"
+                    id="registerUsername"
+                    placeholder="Elige un nombre de usuario"
+                    required
+            />
+            <i class="fas fa-user input-icon"></i>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="registerEmail">Correo electrónico</label>
+          <div class="input-group">
+            <input
+                    type="email"
+                    id="registerEmail"
+                    placeholder="nombre@ejemplo.com"
+                    required
+            />
+            <i class="fas fa-envelope input-icon"></i>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="registerPassword">Contraseña</label>
+          <div class="input-group">
+            <input
+                    type="password"
+                    id="registerPassword"
+                    placeholder="Crea una contraseña segura"
+                    required
+            />
+            <i class="fas fa-lock input-icon"></i>
+          </div>
+        </div>
+        <button id="registerButton" class="btn">
+          <i class="fas fa-user-plus btn-icon"></i>Crear cuenta
+        </button>
+        <div id="registerMessage" class="message"></div>
+      </div>
+    </div>
 
-    // Mostrar/ocultar loader
-    function showLoader() {
-      loaderContainer.classList.add('active');
-    }
-    function hideLoader() {
-      loaderContainer.classList.remove('active');
-    }
+    <!-- Verify Form -->
+    <div class="tab-content" id="verify">
+      <h2 class="card-title">Verificar cuenta</h2>
+      <div class="form-container">
+        <div class="form-group">
+          <label for="verifyEmail">Correo electrónico</label>
+          <div class="input-group">
+            <input
+                    type="email"
+                    id="verifyEmail"
+                    placeholder="nombre@ejemplo.com"
+                    required
+            />
+            <i class="fas fa-envelope input-icon"></i>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="verifyCode">Código de verificación</label>
+          <div class="input-group">
+            <input
+                    type="text"
+                    id="verifyCode"
+                    placeholder="Ingresa el código recibido"
+                    required
+            />
+            <i class="fas fa-key input-icon"></i>
+          </div>
+        </div>
+        <div class="button-group">
+          <button id="verifyButton" class="btn">
+            <i class="fas fa-check-circle btn-icon"></i>Verificar cuenta
+          </button>
+          <button id="resendButton" class="btn btn-secondary">
+            <i class="fas fa-paper-plane btn-icon"></i>Reenviar código
+          </button>
+        </div>
+        <div id="verifyMessage" class="message"></div>
+      </div>
+    </div>
 
-    // Cambio de pestañas
-    navTabs.forEach(tab => {
-      tab.addEventListener('click', () => {
-        const tabId = tab.getAttribute('data-tab');
+    <!-- Profile -->
+    <div class="tab-content" id="profile">
+      <div id="profileContent">
+        <div class="empty-state" id="emptyProfileState">
+          <i class="fas fa-user-circle empty-state-icon"></i>
+          <p class="empty-state-text">Inicia sesión para ver tu perfil</p>
+          <p class="empty-state-subtext">La información de tu cuenta se mostrará aquí</p>
+        </div>
 
-        // Quitar "active" de todas las pestañas
-        navTabs.forEach(t => t.classList.remove('active'));
-        // Agregar "active" a la pestaña actual
-        tab.classList.add('active');
+        <div class="profile-card" id="profileCard" style="display: none;">
+          <div class="profile-picture" id="profileAvatar">
+            <i class="fas fa-user"></i>
+          </div>
+          <h2 class="profile-name" id="profileName">Nombre de Usuario</h2>
+          <p class="profile-email" id="profileEmail">usuario@ejemplo.com</p>
 
-        // Ocultar todo el contenido y mostrar solo el de la pestaña seleccionada
-        tabContents.forEach(content => {
-          content.classList.remove('active');
-          if (content.id === tabId) {
-            content.classList.add('active');
-          }
-        });
+          <div class="profile-meta">
+            <div class="meta-item">
+              <div class="meta-value" id="profileId">-</div>
+              <div class="meta-label">ID de Usuario</div>
+            </div>
+            <div class="meta-item">
+              <div class="meta-value">
+                <i
+                        class="fas fa-check-circle"
+                        style="color: var(--success-color);"
+                ></i>
+              </div>
+              <div class="meta-label">Verificado</div>
+            </div>
+          </div>
 
-        // Si se selecciona Perfil o Usuarios y existe un token, cargar datos
-        if (tabId === 'profile' && authToken) {
-          loadUserProfile();
-        } else if (tabId === 'users' && authToken) {
-          loadAllUsers();
+          <button id="logoutButton" class="btn btn-danger">
+            <i class="fas fa-sign-out-alt btn-icon"></i>Cerrar sesión
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Users List -->
+    <div class="tab-content" id="users">
+      <h2 class="section-title">Directorio de usuarios</h2>
+
+      <div class="empty-state" id="emptyUsersState">
+        <i class="fas fa-users empty-state-icon"></i>
+        <p class="empty-state-text">Inicia sesión para ver los usuarios</p>
+        <p class="empty-state-subtext">La lista de usuarios registrados se mostrará aquí</p>
+      </div>
+
+      <div id="usersList" style="display: none;"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Configuración de la API
+  const API_URL = 'https://spring-security-jwt-login-email.onrender.com';
+
+  // Elementos del DOM
+  const navTabs = document.querySelectorAll('.nav-tab');
+  const tabContents = document.querySelectorAll('.tab-content');
+  const loaderContainer = document.getElementById('loaderContainer');
+
+  // Variables globales
+  let authToken = localStorage.getItem('authToken');
+  let currentUser = null;
+
+  // Mostrar/ocultar loader
+  function showLoader() {
+    loaderContainer.classList.add('active');
+  }
+  function hideLoader() {
+    loaderContainer.classList.remove('active');
+  }
+
+  // Cambio de pestañas
+  navTabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      const tabId = tab.getAttribute('data-tab');
+
+      // Quitar "active" de todas las pestañas
+      navTabs.forEach(t => t.classList.remove('active'));
+      // Agregar "active" a la pestaña actual
+      tab.classList.add('active');
+
+      // Ocultar todo el contenido y mostrar solo el de la pestaña seleccionada
+      tabContents.forEach(content => {
+        content.classList.remove('active');
+        if (content.id === tabId) {
+          content.classList.add('active');
         }
       });
-    });
 
-    // Función para mostrar mensajes
-    function showMessage(element, message, type) {
-      element.textContent = message;
-      element.className = `message ${type} visible`;
-      setTimeout(() => {
-        element.className = 'message';
-      }, 5000);
+      // Si se selecciona Perfil o Usuarios y existe un token, cargar datos
+      if (tabId === 'profile' && authToken) {
+        loadUserProfile();
+      } else if (tabId === 'users' && authToken) {
+        loadAllUsers();
+      }
+    });
+  });
+
+  // Función para mostrar mensajes
+  function showMessage(element, message, type) {
+    element.textContent = message;
+    element.className = `message ${type} visible`;
+    setTimeout(() => {
+      element.className = 'message';
+    }, 5000);
+  }
+
+  // Login
+  document.getElementById('loginButton').addEventListener('click', async () => {
+    const email = document.getElementById('loginEmail').value;
+    const password = document.getElementById('loginPassword').value;
+    const messageElement = document.getElementById('loginMessage');
+
+    if (!email || !password) {
+      showMessage(messageElement, 'Por favor completa todos los campos', 'error');
+      return;
     }
 
-    // Login
-    document.getElementById('loginButton').addEventListener('click', async () => {
-      const email = document.getElementById('loginEmail').value;
-      const password = document.getElementById('loginPassword').value;
-      const messageElement = document.getElementById('loginMessage');
+    showLoader();
+    try {
+      const response = await fetch(`${API_URL}/auth/login`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password })
+      });
+      const data = await response.json();
 
-      if (!email || !password) {
-        showMessage(messageElement, 'Por favor completa todos los campos', 'error');
-        return;
+      if (response.ok) {
+        authToken = data.token;
+        localStorage.setItem('authToken', authToken);
+        showMessage(messageElement, 'Inicio de sesión exitoso', 'success');
+        // Cambiar a la pestaña de perfil
+        document.querySelector('[data-tab="profile"]').click();
+      } else {
+        showMessage(messageElement, data.message || 'Error al iniciar sesión', 'error');
       }
+    } catch (error) {
+      showMessage(messageElement, 'Error en la comunicación con el servidor', 'error');
+    } finally {
+      hideLoader();
+    }
+  });
 
-      showLoader();
-      try {
-        const response = await fetch(`${API_URL}/auth/login`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email, password })
-        });
-        const data = await response.json();
+  // Registro
+  document.getElementById('registerButton').addEventListener('click', async () => {
+    const username = document.getElementById('registerUsername').value;
+    const email = document.getElementById('registerEmail').value;
+    const password = document.getElementById('registerPassword').value;
+    const messageElement = document.getElementById('registerMessage');
 
-        if (response.ok) {
-          authToken = data.token;
-          localStorage.setItem('authToken', authToken);
-          showMessage(messageElement, 'Inicio de sesión exitoso', 'success');
-          // Cambiar a la pestaña de perfil
-          document.querySelector('[data-tab="profile"]').click();
-        } else {
-          showMessage(messageElement, data.message || 'Error al iniciar sesión', 'error');
+    if (!username || !email || !password) {
+      showMessage(messageElement, 'Por favor completa todos los campos', 'error');
+      return;
+    }
+
+    showLoader();
+    try {
+      const response = await fetch(`${API_URL}/auth/signup`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username, email, password })
+      });
+      const data = await response.json();
+
+      if (response.ok) {
+        showMessage(messageElement, 'Cuenta creada exitosamente. Revisa tu correo para verificar.', 'success');
+        // Cambiar a la pestaña de verificación
+        document.querySelector('[data-tab="verify"]').click();
+      } else {
+        showMessage(messageElement, data.message || 'Error al crear la cuenta', 'error');
+      }
+    } catch (error) {
+      showMessage(messageElement, 'Error en la comunicación con el servidor', 'error');
+    } finally {
+      hideLoader();
+    }
+  });
+
+  // Verificar cuenta
+  document.getElementById('verifyButton').addEventListener('click', async () => {
+    const email = document.getElementById('verifyEmail').value;
+    const code = document.getElementById('verifyCode').value;
+    const messageElement = document.getElementById('verifyMessage');
+
+    if (!email || !code) {
+      showMessage(messageElement, 'Por favor completa todos los campos', 'error');
+      return;
+    }
+
+    showLoader();
+    try {
+      const response = await fetch(`${API_URL}/auth/verify`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, code })
+      });
+      const data = await response.json();
+
+      if (response.ok) {
+        showMessage(messageElement, 'Cuenta verificada exitosamente', 'success');
+        // Cambiar a la pestaña de inicio de sesión
+        document.querySelector('[data-tab="login"]').click();
+      } else {
+        showMessage(messageElement, data.message || 'Error al verificar la cuenta', 'error');
+      }
+    } catch (error) {
+      showMessage(messageElement, 'Error en la comunicación con el servidor', 'error');
+    } finally {
+      hideLoader();
+    }
+  });
+
+  // Reenviar código de verificación
+  document.getElementById('resendButton').addEventListener('click', async () => {
+    const email = document.getElementById('verifyEmail').value;
+    const messageElement = document.getElementById('verifyMessage');
+
+    if (!email) {
+      showMessage(messageElement, 'Por favor ingresa tu correo electrónico', 'error');
+      return;
+    }
+
+    showLoader();
+    try {
+      const response = await fetch(`${API_URL}/auth/resend`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email })
+      });
+      const data = await response.json();
+
+      if (response.ok) {
+        showMessage(messageElement, 'Código reenviado. Revisa tu correo electrónico.', 'success');
+      } else {
+        showMessage(messageElement, data.message || 'Error al reenviar el código', 'error');
+      }
+    } catch (error) {
+      showMessage(messageElement, 'Error en la comunicación con el servidor', 'error');
+    } finally {
+      hideLoader();
+    }
+  });
+
+  // Cerrar sesión
+  document.getElementById('logoutButton').addEventListener('click', () => {
+    authToken = null;
+    localStorage.removeItem('authToken');
+    currentUser = null;
+    showMessage(document.getElementById('loginMessage'), 'Sesión cerrada', 'success');
+    document.querySelector('[data-tab="login"]').click();
+  });
+
+  // Cargar perfil del usuario
+  async function loadUserProfile() {
+    showLoader();
+    try {
+      const response = await fetch(`${API_URL}/auth/me`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${authToken}`
         }
-      } catch (error) {
-        showMessage(messageElement, 'Error en la comunicación con el servidor', 'error');
-      } finally {
-        hideLoader();
-      }
-    });
+      });
+      const data = await response.json();
 
-    // Registro
-    document.getElementById('registerButton').addEventListener('click', async () => {
-      const username = document.getElementById('registerUsername').value;
-      const email = document.getElementById('registerEmail').value;
-      const password = document.getElementById('registerPassword').value;
-      const messageElement = document.getElementById('registerMessage');
-
-      if (!username || !email || !password) {
-        showMessage(messageElement, 'Por favor completa todos los campos', 'error');
-        return;
-      }
-
-      showLoader();
-      try {
-        const response = await fetch(`${API_URL}/auth/register`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ username, email, password })
-        });
-        const data = await response.json();
-
-        if (response.ok) {
-          showMessage(messageElement, 'Cuenta creada exitosamente. Revisa tu correo para verificar.', 'success');
-          // Cambiar a la pestaña de verificación
-          document.querySelector('[data-tab="verify"]').click();
-        } else {
-          showMessage(messageElement, data.message || 'Error al crear la cuenta', 'error');
-        }
-      } catch (error) {
-        showMessage(messageElement, 'Error en la comunicación con el servidor', 'error');
-      } finally {
-        hideLoader();
-      }
-    });
-
-    // Verificar cuenta
-    document.getElementById('verifyButton').addEventListener('click', async () => {
-      const email = document.getElementById('verifyEmail').value;
-      const code = document.getElementById('verifyCode').value;
-      const messageElement = document.getElementById('verifyMessage');
-
-      if (!email || !code) {
-        showMessage(messageElement, 'Por favor completa todos los campos', 'error');
-        return;
-      }
-
-      showLoader();
-      try {
-        const response = await fetch(`${API_URL}/auth/verify`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email, code })
-        });
-        const data = await response.json();
-
-        if (response.ok) {
-          showMessage(messageElement, 'Cuenta verificada exitosamente', 'success');
-          // Cambiar a la pestaña de inicio de sesión
-          document.querySelector('[data-tab="login"]').click();
-        } else {
-          showMessage(messageElement, data.message || 'Error al verificar la cuenta', 'error');
-        }
-      } catch (error) {
-        showMessage(messageElement, 'Error en la comunicación con el servidor', 'error');
-      } finally {
-        hideLoader();
-      }
-    });
-
-    // Reenviar código de verificación
-    document.getElementById('resendButton').addEventListener('click', async () => {
-      const email = document.getElementById('verifyEmail').value;
-      const messageElement = document.getElementById('verifyMessage');
-
-      if (!email) {
-        showMessage(messageElement, 'Por favor ingresa tu correo electrónico', 'error');
-        return;
-      }
-
-      showLoader();
-      try {
-        const response = await fetch(`${API_URL}/auth/resend`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email })
-        });
-        const data = await response.json();
-
-        if (response.ok) {
-          showMessage(messageElement, 'Código reenviado. Revisa tu correo electrónico.', 'success');
-        } else {
-          showMessage(messageElement, data.message || 'Error al reenviar el código', 'error');
-        }
-      } catch (error) {
-        showMessage(messageElement, 'Error en la comunicación con el servidor', 'error');
-      } finally {
-        hideLoader();
-      }
-    });
-
-    // Cerrar sesión
-    document.getElementById('logoutButton').addEventListener('click', () => {
-      authToken = null;
-      localStorage.removeItem('authToken');
-      currentUser = null;
-      showMessage(document.getElementById('loginMessage'), 'Sesión cerrada', 'success');
-      document.querySelector('[data-tab="login"]').click();
-    });
-
-    // Cargar perfil del usuario
-    async function loadUserProfile() {
-      showLoader();
-      try {
-        const response = await fetch(`${API_URL}/auth/profile`, {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${authToken}`
-          }
-        });
-        const data = await response.json();
-
-        if (response.ok) {
-          currentUser = data;
-          document.getElementById('emptyProfileState').style.display = 'none';
-          document.getElementById('profileCard').style.display = 'block';
-          document.getElementById('profileName').textContent = currentUser.username || 'Nombre de Usuario';
-          document.getElementById('profileEmail').textContent = currentUser.email || 'usuario@ejemplo.com';
-          document.getElementById('profileId').textContent = currentUser.id || '-';
-        } else {
-          showMessage(
-            document.getElementById('loginMessage'),
-            data.message || 'Error al cargar perfil',
-            'error'
-          );
-        }
-      } catch (error) {
+      if (response.ok) {
+        currentUser = data;
+        document.getElementById('emptyProfileState').style.display = 'none';
+        document.getElementById('profileCard').style.display = 'block';
+        document.getElementById('profileName').textContent = currentUser.username || 'Nombre de Usuario';
+        document.getElementById('profileEmail').textContent = currentUser.email || 'usuario@ejemplo.com';
+        document.getElementById('profileId').textContent = currentUser.id || '-';
+      } else {
         showMessage(
-          document.getElementById('loginMessage'),
-          'Error en la comunicación con el servidor',
-          'error'
+                document.getElementById('loginMessage'),
+                data.message || 'Error al cargar perfil',
+                'error'
         );
-      } finally {
-        hideLoader();
       }
+    } catch (error) {
+      showMessage(
+              document.getElementById('loginMessage'),
+              'Error en la comunicación con el servidor',
+              'error'
+      );
+    } finally {
+      hideLoader();
     }
+  }
 
-    // Cargar lista de usuarios
-    async function loadAllUsers() {
-      showLoader();
-      try {
-        const response = await fetch(`${API_URL}/auth/users`, {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${authToken}`
-          }
-        });
-        const data = await response.json();
-
-        if (response.ok) {
-          const usersListContainer = document.getElementById('usersList');
-          const emptyUsersState = document.getElementById('emptyUsersState');
-          usersListContainer.innerHTML = '';
-
-          if (data.length === 0) {
-            emptyUsersState.style.display = 'block';
-            usersListContainer.style.display = 'none';
-          } else {
-            emptyUsersState.style.display = 'none';
-            usersListContainer.style.display = 'block';
-
-            data.forEach(user => {
-              const userCard = document.createElement('div');
-              userCard.className = 'user-card';
-
-              const avatar = document.createElement('div');
-              avatar.className = 'user-card-avatar';
-              avatar.innerHTML = '<i class="fas fa-user"></i>';
-
-              const content = document.createElement('div');
-              content.className = 'user-card-content';
-
-              const nameEl = document.createElement('div');
-              nameEl.className = 'user-card-name';
-              nameEl.textContent = user.username;
-
-              const emailEl = document.createElement('div');
-              emailEl.className = 'user-card-email';
-              emailEl.textContent = user.email;
-
-              const idEl = document.createElement('div');
-              idEl.className = 'user-card-id';
-              idEl.textContent = `ID: ${user.id}`;
-
-              content.appendChild(nameEl);
-              content.appendChild(emailEl);
-              content.appendChild(idEl);
-
-              userCard.appendChild(avatar);
-              userCard.appendChild(content);
-              usersListContainer.appendChild(userCard);
-            });
-          }
-        } else {
-          showMessage(
-            document.getElementById('loginMessage'),
-            data.message || 'Error al cargar usuarios',
-            'error'
-          );
+  // Cargar lista de usuarios
+  async function loadAllUsers() {
+    showLoader();
+    try {
+      const response = await fetch(`${API_URL}/auth/users`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${authToken}`
         }
-      } catch (error) {
-        showMessage(
-          document.getElementById('loginMessage'),
-          'Error en la comunicación con el servidor',
-          'error'
-        );
-      } finally {
-        hideLoader();
-      }
-    }
+      });
+      const data = await response.json();
 
-    // Si existe sesión iniciada, cargar perfil automáticamente
-    if (authToken) {
-      document.querySelector('[data-tab="profile"]').click();
+      if (response.ok) {
+        const usersListContainer = document.getElementById('usersList');
+        const emptyUsersState = document.getElementById('emptyUsersState');
+        usersListContainer.innerHTML = '';
+
+        if (data.length === 0) {
+          emptyUsersState.style.display = 'block';
+          usersListContainer.style.display = 'none';
+        } else {
+          emptyUsersState.style.display = 'none';
+          usersListContainer.style.display = 'block';
+
+          data.forEach(user => {
+            const userCard = document.createElement('div');
+            userCard.className = 'user-card';
+
+            const avatar = document.createElement('div');
+            avatar.className = 'user-card-avatar';
+            avatar.innerHTML = '<i class="fas fa-user"></i>';
+
+            const content = document.createElement('div');
+            content.className = 'user-card-content';
+
+            const nameEl = document.createElement('div');
+            nameEl.className = 'user-card-name';
+            nameEl.textContent = user.username;
+
+            const emailEl = document.createElement('div');
+            emailEl.className = 'user-card-email';
+            emailEl.textContent = user.email;
+
+            const idEl = document.createElement('div');
+            idEl.className = 'user-card-id';
+            idEl.textContent = `ID: ${user.id}`;
+
+            content.appendChild(nameEl);
+            content.appendChild(emailEl);
+            content.appendChild(idEl);
+
+            userCard.appendChild(avatar);
+            userCard.appendChild(content);
+            usersListContainer.appendChild(userCard);
+          });
+        }
+      } else {
+        showMessage(
+                document.getElementById('loginMessage'),
+                data.message || 'Error al cargar usuarios',
+                'error'
+        );
+      }
+    } catch (error) {
+      showMessage(
+              document.getElementById('loginMessage'),
+              'Error en la comunicación con el servidor',
+              'error'
+      );
+    } finally {
+      hideLoader();
     }
-  </script>
+  }
+
+  // Si existe sesión iniciada, cargar perfil automáticamente
+  if (authToken) {
+    document.querySelector('[data-tab="profile"]').click();
+  }
+</script>
 </body>
 </html>
